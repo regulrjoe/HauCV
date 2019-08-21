@@ -5,81 +5,85 @@
 
 namespace hcv
 {
+	class IFDBaseState;
+	
 	//////////////////////
 	class IFDState
 	{
 		public:
-			virtual bool HandleBody(FDSystem&);
-			
-			virtual bool HandleNoBody(FDSystem&);
+			//virtual bool HandleBody(FDSystem&);
+			//virtual bool HandleNoBody(FDSystem&);
 
 		protected:
-			bool changeBaseState(FDSystem&, const IFDState*);
-
-			bool changeCurrentState(FDSystem&, const IFDState*);
+			//bool changeBaseState(FDSystem&, const IFDBaseState*);
+			//bool changeCurrentState(FDSystem&, const IFDState*);
 	};
 
 	//////////////////////
-	class IFDBaseState : virtual public IFDState
+	class IFDBaseState : public IFDState
 	{
 		protected:
-			bool startRecording(FDSystem&);
+			//bool startRecording(FDSystem&);
 	};
 
 	//////////////////////
-	class IFDCurrentState : virtual public IFDState {};
-
-	//////////////////////
-	class AlertState : public IFDBaseState, public IFDCurrentState
+	class AlertState : public IFDBaseState
 	{
 		public:
 			static IFDState* Instance();
-			static IFDBaseState* BInstance();
-			static IFDCurrentState* CInstance();
+			static IFDBaseState* InstanceAsBase();
 
 		private:
-			bool sendAlertNotification();
-
-			bool playAlertSound();
+			AlertState() {}
+//			bool sendAlertNotification();
+//			bool playAlertSound();
+		
+		private:
+			static AlertState* singleton;
 	};
 
 	//////////////////////
-	class IdleState : public IFDBaseState, public IDFCurrentState
+	class IdleState : public IFDBaseState
 	{
 		public:
+			IdleState() {}
 			static IFDState* Instance();
-			static IFDBaseState* BInstance();
-			static IFDCurrentState* CInstance();
-	};
-
-	//////////////////////
-	class RecordingState : public IFDCurrentState
-	{
-		public:
-			static IFDState* Instance();
-			static IFDCurrentState* CInstance();
+			static IFDBaseState* InstanceAsBase();
 
 		private:
-			bool soundAlarm();
-
-			bool sendAlarmNotification();
-
-			bool stopRecording();
-
-			bool storeVideo();
+			static IdleState* singleton;
 	};
 
 	//////////////////////
-	class RecordingAndAlarmingState : public IFDCurrentState
+	class RecordingState : public IFDState
 	{
 		public:
 			static IFDState* Instance();
-			static IFDCurrentState* CInstance();
 
 		private:
-			bool stopAlarm();
+			RecordingState() {}
+//			bool soundAlarm();
+//			bool sendAlarmNotification();
+//			bool stopRecording();
+//			bool storeVideo();
 
-			bool sendStoppedAlarmNotification();
+		private:
+			static RecordingState* singleton;
+	};
+
+	//////////////////////
+	class RecordingAndAlarmingState : public IFDState
+	{
+		public:
+			static IFDState* Instance();
+
+		private:
+			RecordingAndAlarmingState() {}
+//			bool stopAlarm();
+//			bool sendStoppedAlarmNotification();
+
+		private:
+			static RecordingAndAlarmingState* singleton;
 	};
 
 } // namespace hcv
