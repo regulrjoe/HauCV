@@ -2,10 +2,11 @@
 #define fd_system_hpp
 
 #include "body_detector.hpp"
+#include "fd_state.hpp"
 
 #include <cstdint>
+#include <ctime>
 #include <string>
-#include <time>
 #include <vector>
 
 using namespace std;
@@ -14,36 +15,35 @@ namespace hcv
 {
 	class IFDState;
 	class IFDBaseState;
-	class IFDCurrentState;
 
 	class FDSystem
 	{
 		//// Methods
 		public:
-			FDSystem(const BodyDetector const *, const IFDBaseState const *, const uint8_t&, const uint8_t&, const uint8_t&);
+			FDSystem(BodyDetector* const, IFDBaseState* const, const uint8_t&, const uint8_t&, const uint8_t&);
 
 			~FDSystem();
 
-			bool Start();
-
-			bool Stop();
+//			bool Start();
+//
+//			bool Stop();
 
 		private:
 			friend class IFDState;
 
-			bool changeBaseState(const IFDBaseState*);
-
-			bool changeCurrentState(const IFDCurrentState*);
-
-			bool playAlertSound();
-
-			bool sendNotification(const string&);
-
-			bool isTimeToTriggerAlarm();
-
-			bool isTimeToStopAlarm();
-
-			bool isTimeToStopRecording();
+//			bool changeBaseState(const IFDBaseState*);
+//
+//			bool changeCurrentState(const IFDState*);
+//
+//			bool playAlertSound();
+//
+//			bool sendNotification(const string&);
+//
+//			bool isTimeToTriggerAlarm();
+//
+//			bool isTimeToStopAlarm();
+//
+//			bool isTimeToStopRecording();
 
 		//// Variables
 		private:
