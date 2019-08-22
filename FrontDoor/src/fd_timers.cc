@@ -66,7 +66,10 @@ namespace hcv
 	////////////////////
 	bool FDTimers::IsTimeToTriggerAlarm()
 	{
-		return false;
+		if (m_last_body_last_detected - m_last_body_first_detected >= m_seconds_for_starting_alarm)
+			return true;
+		else
+			return false;
 	}
 
 
