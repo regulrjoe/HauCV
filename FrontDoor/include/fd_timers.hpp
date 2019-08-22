@@ -15,12 +15,16 @@ namespace hcv
 			FDTimers(const uint8_t&, const uint8_t&, const uint8_t&);
 
 			~FDTimers();
+
+			void UpdateLastBodyTimers();
+
+			void UpdateLastBodyLastDetectedTimer();
 		
-//			bool IsTimeToTriggerAlarm();
-//
-//			bool IsTimeToStopAlarm();
-//
-//			bool IsTimeToStopRecording();
+			bool IsTimeToTriggerAlarm();
+
+			bool IsTimeToStopAlarm();
+
+			bool IsTimeToStopRecording();
 
 		//// Data
 		public:
