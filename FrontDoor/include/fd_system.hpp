@@ -1,8 +1,9 @@
-#ifndef fd_system_hpp
-#define fd_system_hpp
+#ifndef FD_SYSTEM_HPP
+#define FD_SYSTEM_HPP
 
 #include "body_detector.hpp"
 #include "fd_state.hpp"
+#include "fd_timers.hpp"
 
 #include <cstdint>
 #include <ctime>
@@ -20,12 +21,12 @@ namespace hcv
 	{
 		//// Methods
 		public:
-			FDSystem(BodyDetector* const, IFDBaseState* const, const uint8_t&, const uint8_t&, const uint8_t&);
+			FDSystem(BodyDetector* const, IFDBaseState* const, FDTimers* const);
 
 			~FDSystem();
 
-//			bool Start();
-//
+			bool Start(const int&);
+
 //			bool Stop();
 
 		private:
@@ -39,32 +40,24 @@ namespace hcv
 //
 //			bool sendNotification(const string&);
 //
-//			bool isTimeToTriggerAlarm();
+//			bool triggerAlarm();
 //
-//			bool isTimeToStopAlarm();
+//			bool stopAlarm();
 //
-//			bool isTimeToStopRecording();
+//			bool stopRecording();
 
-		//// Variables
+		//// Data
 		private:
-			BodyDetector* m_body_detector;
+			BodyDetector* m_p_body_detector;
 
-			IFDBaseState* m_base_system_state;
+			IFDBaseState* m_p_base_system_state;
 
-			IFDState* m_current_system_state;
-
-			uint8_t m_seconds_for_starting_alarm;
-
-			uint8_t m_seconds_for_stopping_alarm;
-
-			uint8_t m_seconds_for_stopping_recording;
+			IFDState* m_p_current_system_state;
 
 			vector<string> m_notification_destinations;
-			
-			time_t m_last_body_first_detected;
 
-			time_t m_last_body_last_detected;
+			FDTimers* m_p_timers;
 	};
 } // namespace hcv
 
-#endif // fd_system_hpp
+#endif // FD_SYSTEM_HPP

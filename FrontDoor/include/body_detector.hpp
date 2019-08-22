@@ -10,6 +10,8 @@ namespace hcv
 		public:
 			BodyDetector();
 
+			BodyDetector(const BodyDetector&);
+
 			~BodyDetector();
 
 			//bool DetectBody(const cv::Mat&);
