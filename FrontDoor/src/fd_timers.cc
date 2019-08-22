@@ -17,7 +17,7 @@ namespace hcv
 
 	////////////////////
 	FDTimers::FDTimers(const FDTimers& i_FDTimers) :
-		m_seconds_to_start_alarm(i_FDTimers.m_seconds_to_start_alarm),
+		m_seconds_to_sound_alarm(i_FDTimers.m_seconds_to_sound_alarm),
 		m_seconds_to_stop_alarm(i_FDTimers.m_seconds_to_stop_alarm),
 		m_seconds_to_stop_recording(i_FDTimers.m_seconds_to_stop_recording),
 		m_last_body_first_detected(i_FDTimers.m_last_body_first_detected),
@@ -28,11 +28,11 @@ namespace hcv
 
 	////////////////////
 	FDTimers::FDTimers(
-			const uint8_t& i_seconds_to_start_alarm /* = 10 */,
+			const uint8_t& i_seconds_to_sound_alarm /* = 10 */,
 			const uint8_t& i_seconds_to_stop_alarm /* = 10 */,
 			const uint8_t& i_seconds_to_stop_recording /* = 10 */
 			) : 
-		m_seconds_to_start_alarm(i_seconds_to_start_alarm),
+		m_seconds_to_sound_alarm(i_seconds_to_sound_alarm),
 		m_seconds_to_stop_alarm(i_seconds_to_stop_alarm),
 		m_seconds_to_stop_recording(i_seconds_to_stop_recording)
 	{
@@ -64,9 +64,9 @@ namespace hcv
 	}
 
 	////////////////////
-	bool FDTimers::IsTimeToStartAlarm()
+	bool FDTimers::IsTimeToSoundAlarm()
 	{
-		if (m_last_body_last_detected - m_last_body_first_detected >= m_seconds_to_start_alarm)
+		if (m_last_body_last_detected - m_last_body_first_detected >= m_seconds_to_sound_alarm)
 			return true;
 		else
 			return false;

@@ -11,26 +11,26 @@ namespace {
 
 	//// Test FDTimers.
 
-	// IsTimeToStartAlarm().
-	TEST(FDTimersTest, IsTimeToStartAlarm)
+	// IsTimeToSoundAlarm().
+	TEST(FDTimersTest, IsTimeToSoundAlarm)
 	{
 		/*
-		 * TRUE: when FDTimers.m_last_body_last_detected - FDTimers.m_last_body_first_detected >= FDTimers.m_seconds_to_start_alarm
+		 * TRUE: when FDTimers.m_last_body_last_detected - FDTimers.m_last_body_first_detected >= FDTimers.m_seconds_to_sound_alarm
 		 * FALSE: Otherwise.
 		 */
 
-		FDTimers timers(1 /*seconds_to_start_alarm*/);
+		FDTimers timers(1 /*seconds_to_sound_alarm*/);
 
-		EXPECT_FALSE(timers.IsTimeToStartAlarm());
+		EXPECT_FALSE(timers.IsTimeToSoundAlarm());
 
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 		timers.UpdateLastBodyLastDetectedTimer();
 
-		EXPECT_TRUE(timers.IsTimeToStartAlarm());
+		EXPECT_TRUE(timers.IsTimeToSoundAlarm());
 
 		timers.UpdateLastBodyTimers();
 
-		EXPECT_FALSE(timers.IsTimeToStartAlarm());
+		EXPECT_FALSE(timers.IsTimeToSoundAlarm());
 	}
 
 	// IsTimeToStopAlarm().
@@ -41,7 +41,7 @@ namespace {
 		 * FALSE: Otherwise.
 		 */
 
-		FDTimers timers(0 /*seconds_to_start_alarm*/, 
+		FDTimers timers(0 /*seconds_to_sound_alarm*/, 
 				1 /*seconds_to_stop_alarm*/);
 
 		EXPECT_FALSE(timers.IsTimeToStopAlarm());
@@ -62,7 +62,7 @@ namespace {
 	// IsTimeToStopRecording().
 	TEST(FDTimersTest, IsTimeToStopRecording)
 	{
-		FDTimers timers(0 /*seconds_to_start_alarm*/,
+		FDTimers timers(0 /*seconds_to_sound_alarm*/,
 				1 /*seconds_to_stop_alarm*/,
 				1 /*seconds_to_stop_recording*/);
 
