@@ -62,13 +62,28 @@ namespace hcv
 
 		private:
 			RecordingState() {}
-//			bool soundAlarm();
 //			bool sendAlarmNotification();
+//			bool soundAlarm();
 //			bool stopRecording();
 //			bool storeVideo();
 
 		private:
 			static RecordingState* singleton;
+	};
+
+	//////////////////////
+	class AlarmingState : public IFDState
+	{
+		public:
+			static IFDState* Instance();
+
+		private:
+			AlarmingState() {}
+//			bool startRecording(FDSystem&);
+//			bool stopAlarm(FDSystem&);
+
+		private:
+			static AlarmingState* singleton;
 	};
 
 	//////////////////////
@@ -79,8 +94,7 @@ namespace hcv
 
 		private:
 			RecordingAndAlarmingState() {}
-//			bool stopAlarm();
-//			bool sendStoppedAlarmNotification();
+//			bool stopAlarm(FDSystem&);
 
 		private:
 			static RecordingAndAlarmingState* singleton;

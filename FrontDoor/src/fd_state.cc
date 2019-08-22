@@ -46,6 +46,16 @@ namespace hcv
 		return singleton;
 	}
 
+	////////////// AlarmingState
+	AlarmingState* AlarmingState::singleton = 0;
+
+	IFDState* AlarmingState::Instance()
+	{
+		if (singleton == 0)
+			singleton = new AlarmingState();
+		return singleton;
+	}
+
 	////////////// RecordingAndAlarmingState
 	RecordingAndAlarmingState* RecordingAndAlarmingState::singleton = 0;
 
