@@ -17,9 +17,9 @@ namespace hcv
 
 	////////////////////
 	FDTimers::FDTimers(const FDTimers& i_FDTimers) :
-		m_seconds_for_starting_alarm(i_FDTimers.m_seconds_for_starting_alarm),
-		m_seconds_for_stopping_alarm(i_FDTimers.m_seconds_for_stopping_alarm),
-		m_seconds_for_stopping_recording(i_FDTimers.m_seconds_for_stopping_recording),
+		m_seconds_to_start_alarm(i_FDTimers.m_seconds_to_start_alarm),
+		m_seconds_to_stop_alarm(i_FDTimers.m_seconds_to_stop_alarm),
+		m_seconds_to_stop_recording(i_FDTimers.m_seconds_to_stop_recording),
 		m_last_body_first_detected(i_FDTimers.m_last_body_first_detected),
 		m_last_body_last_detected(i_FDTimers.m_last_body_last_detected)
 	{
@@ -28,13 +28,13 @@ namespace hcv
 
 	////////////////////
 	FDTimers::FDTimers(
-			const uint8_t& i_seconds_for_starting_alarm /* = 10 */,
-			const uint8_t& i_seconds_for_stopping_alarm /* = 10 */,
-			const uint8_t& i_seconds_for_stopping_recording /* = 10 */
+			const uint8_t& i_seconds_to_start_alarm /* = 10 */,
+			const uint8_t& i_seconds_to_stop_alarm /* = 10 */,
+			const uint8_t& i_seconds_to_stop_recording /* = 10 */
 			) : 
-		m_seconds_for_starting_alarm(i_seconds_for_starting_alarm),
-		m_seconds_for_stopping_alarm(i_seconds_for_stopping_alarm),
-		m_seconds_for_stopping_recording(i_seconds_for_stopping_recording)
+		m_seconds_to_start_alarm(i_seconds_to_start_alarm),
+		m_seconds_to_stop_alarm(i_seconds_to_stop_alarm),
+		m_seconds_to_stop_recording(i_seconds_to_stop_recording)
 	{
 		this->UpdateLastBodyTimers();
 
@@ -64,9 +64,9 @@ namespace hcv
 	}
 
 	////////////////////
-	bool FDTimers::IsTimeToTriggerAlarm()
+	bool FDTimers::IsTimeToStartAlarm()
 	{
-		if (m_last_body_last_detected - m_last_body_first_detected >= m_seconds_for_starting_alarm)
+		if (m_last_body_last_detected - m_last_body_first_detected >= m_seconds_to_start_alarm)
 			return true;
 		else
 			return false;
@@ -76,13 +76,19 @@ namespace hcv
 	////////////////////
 	bool FDTimers::IsTimeToStopAlarm()
 	{
-		return false;
+		if(system_clock::to_time_t(system_clock::now()) - m_last_body_last_detected >= m_seconds_to_stop_alarm)
+			return true;
+		else
+			return false;
 	}
 
 	////////////////////
 	bool FDTimers::IsTimeToStopRecording()
 	{
-		return false;
+		if(system_clock::to_time_t(system_clock::now()) - m_last_body_last_detected >= m_seconds_to_stop_recording)
+			return true;
+		else
+			return false;
 	}
 
 } // namespace hcv

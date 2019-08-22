@@ -12,9 +12,9 @@ namespace hcv
 		public:
 			FDTimers(const FDTimers& i_FDTimers);
 
-			FDTimers(const uint8_t& i_seconds_for_starting_alarm = 10, 
-					const uint8_t& i_seconds_for_stopping_alarm = 10, 
-					const uint8_t& i_seconds_for_stopping_recording = 10);
+			FDTimers(const uint8_t& i_seconds_to_start_alarm = 10, 
+					const uint8_t& i_seconds_to_stop_alarm = 10, 
+					const uint8_t& i_seconds_to_stop_recording = 10);
 
 
 			~FDTimers();
@@ -23,7 +23,7 @@ namespace hcv
 
 			void UpdateLastBodyLastDetectedTimer();
 		
-			bool IsTimeToTriggerAlarm();
+			bool IsTimeToStartAlarm();
 
 			bool IsTimeToStopAlarm();
 
@@ -35,11 +35,11 @@ namespace hcv
 			
 			time_t m_last_body_last_detected;
 
-			uint8_t m_seconds_for_starting_alarm;
+			uint8_t m_seconds_to_start_alarm;
 
-			uint8_t m_seconds_for_stopping_alarm;
+			uint8_t m_seconds_to_stop_alarm;
 
-			uint8_t m_seconds_for_stopping_recording;
+			uint8_t m_seconds_to_stop_recording;
 	};
 
 } // namespace hcv
