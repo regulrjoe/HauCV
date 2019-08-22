@@ -28,9 +28,9 @@ namespace hcv
 
 	////////////////////
 	FDTimers::FDTimers(
-			const uint8_t& i_seconds_for_starting_alarm = 10, 
-			const uint8_t& i_seconds_for_stopping_alarm = 10,
-			const uint8_t& i_seconds_for_stopping_recording = 10
+			const uint8_t& i_seconds_for_starting_alarm /* = 10 */,
+			const uint8_t& i_seconds_for_stopping_alarm /* = 10 */,
+			const uint8_t& i_seconds_for_stopping_recording /* = 10 */
 			) : 
 		m_seconds_for_starting_alarm(i_seconds_for_starting_alarm),
 		m_seconds_for_stopping_alarm(i_seconds_for_stopping_alarm),

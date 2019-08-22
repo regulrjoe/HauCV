@@ -12,7 +12,10 @@ namespace hcv
 		public:
 			FDTimers(const FDTimers& i_FDTimers);
 
-			FDTimers(const uint8_t&, const uint8_t&, const uint8_t&);
+			FDTimers(const uint8_t& i_seconds_for_starting_alarm = 10, 
+					const uint8_t& i_seconds_for_stopping_alarm = 10, 
+					const uint8_t& i_seconds_for_stopping_recording = 10);
+
 
 			~FDTimers();
 
