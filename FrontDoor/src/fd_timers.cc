@@ -6,6 +6,12 @@
 using namespace std;
 using namespace std::chrono;
 
+#ifndef NDEBUG
+#define PRINT(to_print) cout << to_print << endl
+#else
+#define PRINT(to_print) while(0) // Avoid empty statements.
+#endif
+
 namespace hcv
 {
 
@@ -17,7 +23,7 @@ namespace hcv
 		m_last_body_first_detected(i_FDTimers.m_last_body_first_detected),
 		m_last_body_last_detected(i_FDTimers.m_last_body_last_detected)
 	{
-		cout << "FDTimer constructed by copy." << endl;
+		PRINT("FDTimer constructed by copy.");
 	}
 
 	////////////////////
@@ -32,13 +38,13 @@ namespace hcv
 	{
 		this->UpdateLastBodyTimers();
 
-		cout << "FDTimer constructed with parameters." << endl;
+		PRINT("FDTimer constructed with parameters.");
 	}
 	
 	////////////////////
 	FDTimers::~FDTimers()
 	{
-		cout << "FDTimer destroyed." << endl;
+		PRINT("FDTimer destroyed.");
 	}
 
 	////////////////////
@@ -46,7 +52,7 @@ namespace hcv
 	{
 		m_last_body_first_detected = m_last_body_last_detected = system_clock::to_time_t(system_clock::now());
 
-		cout << "FDTimer: Last body timers updated to: " << ctime(&m_last_body_first_detected) << endl;
+		PRINT("FDTimer: Last body timers updated to: " << ctime(&m_last_body_first_detected));
 	}
 
 	////////////////////
@@ -54,7 +60,7 @@ namespace hcv
 	{
 		m_last_body_last_detected = system_clock::to_time_t(system_clock::now());
 
-		cout << "FDTimer: Last body last detected timer updated to: " << ctime(&m_last_body_last_detected) << endl;
+		PRINT("FDTimer: Last body last detected timer updated to: " << ctime(&m_last_body_last_detected));
 	}
 
 	////////////////////

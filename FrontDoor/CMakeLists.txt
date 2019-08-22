@@ -39,6 +39,9 @@ target_compile_options(fdlib PRIVATE -Werror)
 # Add compile features
 target_compile_features(fdlib PRIVATE cxx_std_17)
 
+#Add compile definitions
+target_compile_definitions(fdlib PUBLIC NDEBUG) #Comment to print. Uncomment to not print.
+
 #------------------------
 # Create executable
 add_executable(front_door main.cc)
