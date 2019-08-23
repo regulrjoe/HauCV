@@ -1,7 +1,11 @@
 #include "fd_system.hpp"
 #include "fd_builder.hpp"
+#include "retval.hpp"
 
 #include <assert.h>
+#include <iostream>
+
+using namespace std;
 
 int main()
 {
@@ -17,6 +21,8 @@ int main()
 			seconds_for_stopping_recording);
 
 	assert(system != NULL);
+
+	assert(hcv::RetValMsg::GetMsg(hcv::RetVal::OK) == "All OK.");
 
 	return 0;
 }
