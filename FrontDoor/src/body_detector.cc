@@ -1,5 +1,7 @@
 #include "body_detector.hpp"
 
+#include "macros.hpp"
+
 #include <iostream>
 
 using namespace std;
@@ -8,17 +10,17 @@ namespace hcv
 {
 	BodyDetector::BodyDetector()
 	{
-		cout << "BodyDetector empty constructed." << endl;
+		PRINT("BodyDetector empty constructed.");
 	}
 
 	BodyDetector::BodyDetector(const BodyDetector& i_body_detector)
 	{
-		cout << "BodyDetector copy constructed." << endl;
+		PRINT("BodyDetector copy constructed.");
 	}
 
 	BodyDetector::~BodyDetector()
 	{
-		cout << "BodyDetector destroyed." << endl;
+		PRINT("BodyDetector destroyed.");
 	}
 
 	//bool BodyDetector::DetectBody(const cv::Mat& i_img) {}

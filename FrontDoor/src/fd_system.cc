@@ -1,5 +1,7 @@
 #include "fd_system.hpp"
 
+#include "macros.hpp"
+
 #include <opencv2/opencv.hpp>
 
 #include <iostream>
@@ -18,7 +20,7 @@ FDSystem::FDSystem(
 	m_p_current_system_state(i_p_base_state), 
 	m_p_timers(i_p_timers)
 {
-	cout << "FDSystem constructed." << endl;
+	PRINT("FDSystem constructed.");
 }
 
 ///////////////////////////
@@ -29,7 +31,7 @@ FDSystem::~FDSystem()
 	delete m_p_current_system_state;
 	delete m_p_timers;
 
-	cout << "FDSystem destroyed." << endl;
+	PRINT("FDSystem destroyed.");
 }
 
 ///////////////////////////

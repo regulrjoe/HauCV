@@ -1,5 +1,5 @@
-#ifndef body_detector_hpp
-#define body_detector_hpp
+#ifndef BODY_DETECTOR_HPP
+#define BODY_DETECTOR_HPP
 
 #include <opencv2/opencv.hpp>
 
@@ -19,6 +19,4 @@ namespace hcv
 
 } // namespace hcv
 
-#endif // body_detector_hpp
-
-
+#endif // BODY_DETECTOR_HPP

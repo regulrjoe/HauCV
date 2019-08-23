@@ -2,6 +2,7 @@
 
 #include "body_detector.hpp"
 #include "fd_state.hpp"
+#include "macros.hpp"
 
 #include <iostream>
 
@@ -16,7 +17,7 @@ namespace hcv
 			const uint8_t& i_seconds_for_stopping_recording
 			)
 	{
-		cout << "Building Alert System." << endl;
+		PRINT("Building Alert System.");
 
 		BodyDetector* body_detector = new BodyDetector();
 
@@ -40,7 +41,7 @@ namespace hcv
 			const uint8_t& i_seconds_for_stopping_recording
 			)
 	{
-		cout << "Building Idle System." << endl;
+		PRINT("Building Idle System.");
 
 		BodyDetector* body_detector = new BodyDetector();
 

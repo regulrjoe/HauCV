@@ -1,5 +1,5 @@
-#ifndef fd_state_hpp
-#define fd_state_hpp
+#ifndef FD_STATE_HPP
+#define FD_STATE_HPP
 
 #include "fd_system.hpp"
 
@@ -102,4 +102,4 @@ namespace hcv
 
 } // namespace hcv
 
-#endif // fd_state_hpp
+#endif // FD_STATE_HPP

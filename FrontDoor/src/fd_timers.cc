@@ -1,4 +1,5 @@
 #include "fd_timers.hpp"
+#include "macros.hpp"
 
 #include <chrono>
 #include <iostream>
@@ -6,11 +7,6 @@
 using namespace std;
 using namespace std::chrono;
 
-#ifndef NDEBUG
-#define PRINT(to_print) cout << to_print << endl
-#else
-#define PRINT(to_print) while(0) // Avoid empty statements.
-#endif
 
 namespace hcv
 {
@@ -48,22 +44,6 @@ namespace hcv
 	}
 
 	////////////////////
-	void FDTimers::UpdateLastBodyTimers()
-	{
-		m_last_body_first_detected = m_last_body_last_detected = system_clock::to_time_t(system_clock::now());
-
-		PRINT("FDTimer: Last body timers updated to: " << ctime(&m_last_body_first_detected));
-	}
-
-	////////////////////
-	void FDTimers::UpdateLastBodyLastDetectedTimer()
-	{
-		m_last_body_last_detected = system_clock::to_time_t(system_clock::now());
-
-		PRINT("FDTimer: Last body last detected timer updated to: " << ctime(&m_last_body_last_detected));
-	}
-
-	////////////////////
 	bool FDTimers::IsTimeToSoundAlarm()
 	{
 		if (m_last_body_last_detected - m_last_body_first_detected >= m_seconds_to_sound_alarm)
@@ -89,6 +69,22 @@ namespace hcv
 			return true;
 		else
 			return false;
+	}
+
+	////////////////////
+	void FDTimers::UpdateLastBodyTimers()
+	{
+		m_last_body_first_detected = m_last_body_last_detected = system_clock::to_time_t(system_clock::now());
+
+		PRINT("FDTimer: Last body timers updated to: " << ctime(&m_last_body_first_detected));
+	}
+
+	////////////////////
+	void FDTimers::UpdateLastBodyLastDetectedTimer()
+	{
+		m_last_body_last_detected = system_clock::to_time_t(system_clock::now());
+
+		PRINT("FDTimer: Last body last detected timer updated to: " << ctime(&m_last_body_last_detected));
 	}
 
 } // namespace hcv

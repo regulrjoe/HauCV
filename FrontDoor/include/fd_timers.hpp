@@ -19,18 +19,18 @@ namespace hcv
 
 			~FDTimers();
 
-			void UpdateLastBodyTimers();
-
-			void UpdateLastBodyLastDetectedTimer();
-		
 			bool IsTimeToSoundAlarm();
 
 			bool IsTimeToStopAlarm();
 
 			bool IsTimeToStopRecording();
 
+			void UpdateLastBodyTimers();
+
+			void UpdateLastBodyLastDetectedTimer();
+		
 		//// Data
-		public:
+		private:
 			time_t m_last_body_first_detected;
 			
 			time_t m_last_body_last_detected;

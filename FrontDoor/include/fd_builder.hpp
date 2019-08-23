@@ -1,5 +1,5 @@
-#ifndef fd_builder_hpp
-#define fd_builder_hpp
+#ifndef FD_BUILDER_HPP
+#define FD_BUILDER_HPP
 
 #include "fd_system.hpp"
 
@@ -17,6 +17,4 @@ namespace hcv
 
 } // namespace hcv
 
-#endif // system_builder_hpp
-
-
+#endif // FD_BUILDER_HPP
