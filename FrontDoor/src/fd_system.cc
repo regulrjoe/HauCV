@@ -14,12 +14,12 @@ namespace hcv
 	///////////////////////////
 	FDSystem::FDSystem(
 			BodyDetector* const i_p_body_detector,
-			FDTimers* const i_p_timers,
+			FDTimer* const i_p_timer,
 			IFDBaseState* const i_p_base_state,
 			Notifier* const i_p_notifier) :
 		m_p_body_detector(i_p_body_detector),
 		m_p_base_system_state(i_p_base_state),
-		m_p_timers(i_p_timers),
+		m_p_timer(i_p_timer),
 		m_p_current_system_state(i_p_base_state),
 		m_p_notifier(i_p_notifier)
 	{
@@ -32,7 +32,7 @@ namespace hcv
 		delete m_p_body_detector;
 		delete m_p_base_system_state;
 		delete m_p_current_system_state;
-		delete m_p_timers;
+		delete m_p_timer;
 		delete m_p_notifier;
 
 		PRINT("FDSystem destroyed.");

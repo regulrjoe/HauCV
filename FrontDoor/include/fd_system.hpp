@@ -4,7 +4,7 @@
 #include "body_detector.hpp"
 #include "notifier.hpp"
 #include "fd_state.hpp"
-#include "fd_timers.hpp"
+#include "fd_timer.hpp"
 #include "retval.hpp"
 
 #include <cstdint>
@@ -23,7 +23,7 @@ namespace hcv
 	{
 		//// Methods
 		public:
-			FDSystem(BodyDetector* const, FDTimers* const, IFDBaseState* const, Notifier* const);
+			FDSystem(BodyDetector* const, FDTimer* const, IFDBaseState* const, Notifier* const);
 
 			~FDSystem();
 
@@ -46,7 +46,7 @@ namespace hcv
 		private:
 			BodyDetector* m_p_body_detector;
 
-			FDTimers* m_p_timers;
+			FDTimer* m_p_timer;
 
 			IFDBaseState* m_p_base_system_state;
 

@@ -2,6 +2,7 @@
 
 #include "body_detector.hpp"
 #include "fd_state.hpp"
+#include "fd_timer.hpp"
 #include "macros.hpp"
 #include "notifier.hpp"
 
@@ -13,9 +14,9 @@ namespace hcv
 {
 	///////////////////////////
 	FDSystem* FDBuilder::BuildAlert(
-			const uint8_t& i_seconds_for_starting_alarm,
-			const uint8_t& i_seconds_for_stopping_alarm,
-			const uint8_t& i_seconds_for_stopping_recording
+			const uint8_t& i_seconds_to_sound_alarm,
+			const uint8_t& i_seconds_to_stop_alarm,
+			const uint8_t& i_seconds_to_stop_recording
 			)
 	{
 		PRINT("Building Alert System.");
@@ -24,10 +25,10 @@ namespace hcv
 
 		Notifier* notifier = new Notifier();
 
-		FDTimers* timer = new FDTimers(
-					i_seconds_for_starting_alarm,
-					i_seconds_for_stopping_alarm,
-					i_seconds_for_stopping_recording
+		FDTimer* timer = new FDTimer(
+					i_seconds_to_sound_alarm,
+					i_seconds_to_stop_alarm,
+					i_seconds_to_stop_recording
 				);
 
 		return new FDSystem(
@@ -40,9 +41,9 @@ namespace hcv
 
 	///////////////////////////
 	FDSystem* FDBuilder::BuildIdle(
-			const uint8_t& i_seconds_for_starting_alarm,
-			const uint8_t& i_seconds_for_stopping_alarm,
-			const uint8_t& i_seconds_for_stopping_recording
+			const uint8_t& i_seconds_to_sound_alarm,
+			const uint8_t& i_seconds_to_stop_alarm,
+			const uint8_t& i_seconds_to_stop_recording
 			)
 	{
 		PRINT("Building Idle System.");
@@ -51,10 +52,10 @@ namespace hcv
 
 		Notifier* notifier = new Notifier();
 
-		FDTimers* timer = new FDTimers(
-					i_seconds_for_starting_alarm,
-					i_seconds_for_stopping_alarm,
-					i_seconds_for_stopping_recording
+		FDTimer* timer = new FDTimer(
+					i_seconds_to_sound_alarm,
+					i_seconds_to_stop_alarm,
+					i_seconds_to_stop_recording
 				);
 		return new FDSystem(
 				body_detector,

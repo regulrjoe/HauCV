@@ -12,7 +12,9 @@ add_library(fdlib
 		../src/fd_builder.cc
 		../src/fd_state.cc
 		../src/fd_system.cc
-		../src/fd_timers.cc
+		../src/fd_timer.cc
+		../src/notifier.cc
+		../src/retval.cc
 )
 
 
@@ -44,30 +46,30 @@ target_compile_definitions(fdlib PUBLIC NDEBUG) #Comment to print. Uncomment to 
 
 #------------------------
 # Create executable
-add_executable(fd_timers_tests fd_timers_unittests.cc)
+add_executable(tests tests.cc)
 
 # Add headers
-target_include_directories(fd_timers_tests
+target_include_directories(tests
 	PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR}/../include
 		/opt/googletest/include
 )
 
 # Add Library paths
-target_link_directories(fd_timers_tests
+target_link_directories(tests
 	PRIVATE
 		/opt/googletest/lib
 )
 
 # Link library
-target_link_libraries(fd_timers_tests 
+target_link_libraries(tests 
 	fdlib
 	gtest
 	gtest_main
 )
 
 # Add compile options
-target_compile_options(fd_timers_tests PRIVATE -g)
+target_compile_options(tests PRIVATE -g)
 
 # Add compile features
-target_compile_features(fd_timers_tests PRIVATE cxx_std_17)
+target_compile_features(tests PRIVATE cxx_std_17)

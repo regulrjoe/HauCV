@@ -12,7 +12,7 @@ add_library(fdlib
 		src/fd_builder.cc
 		src/fd_state.cc
 		src/fd_system.cc
-		src/fd_timers.cc
+		src/fd_timer.cc
 		src/notifier.cc
 		src/retval.cc
 )
