@@ -22,7 +22,8 @@ int main()
 
 	assert(system != NULL);
 
-	assert(hcv::RetValMsg::GetMsg(hcv::RetVal::OK) == "All OK.");
+	cout << hcv::RetValMsg::GetMsg(hcv::RetVal::OK) << "\n";
+	cout << hcv::RetValMsg::GetMsg(hcv::RetVal::NOTOK) << endl;
 
 	return 0;
 }
