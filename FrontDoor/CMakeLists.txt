@@ -13,6 +13,8 @@ add_library(fdlib
 		src/fd_state.cc
 		src/fd_system.cc
 		src/fd_timers.cc
+		src/notifier.cc
+		src/retval.cc
 )
 
 

@@ -22,12 +22,6 @@ namespace hcv
 			static const string m_messages[2];
 	};
 
-	const string RetValMsg::m_messages[] = 
-	{
-		/* OK */	"All OK.",
-		/* NOTOK */	"All not OK."
-	};
-
 } // namespace hcv
 
 
