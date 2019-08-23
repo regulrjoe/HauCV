@@ -35,7 +35,6 @@ namespace hcv
 
 		private:
 			AlertState() {}
-//			bool sendAlertNotification();
 //			bool playAlertSound();
 		
 		private:
@@ -62,7 +61,6 @@ namespace hcv
 
 		private:
 			RecordingState() {}
-//			bool sendAlarmNotification();
 //			bool soundAlarm();
 //			bool stopRecording();
 //			bool storeVideo();

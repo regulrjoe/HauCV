@@ -3,6 +3,7 @@
 #include "body_detector.hpp"
 #include "fd_state.hpp"
 #include "macros.hpp"
+#include "notifier.hpp"
 
 #include <iostream>
 
@@ -21,6 +22,8 @@ namespace hcv
 
 		BodyDetector* body_detector = new BodyDetector();
 
+		Notifier* notifier = new Notifier();
+
 		FDTimers* timer = new FDTimers(
 					i_seconds_for_starting_alarm,
 					i_seconds_for_stopping_alarm,
@@ -29,8 +32,9 @@ namespace hcv
 
 		return new FDSystem(
 				body_detector,
+				timer,
 				AlertState::InstanceAsBase(),
-				timer
+				notifier
 				);
 	}
 
@@ -45,6 +49,8 @@ namespace hcv
 
 		BodyDetector* body_detector = new BodyDetector();
 
+		Notifier* notifier = new Notifier();
+
 		FDTimers* timer = new FDTimers(
 					i_seconds_for_starting_alarm,
 					i_seconds_for_stopping_alarm,
@@ -52,8 +58,9 @@ namespace hcv
 				);
 		return new FDSystem(
 				body_detector,
+				timer,
 				IdleState::InstanceAsBase(),
-				timer
+				notifier
 				);
 	}
 
