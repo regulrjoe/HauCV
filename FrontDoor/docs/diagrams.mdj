@@ -5618,7 +5618,15 @@
 											"font": "Arial;13;1",
 											"left": 1885,
 											"top": 583,
+<<<<<<< HEAD
 											"width": 273.9775390625,
+=======
+<<<<<<< HEAD
+											"width": 244.5498046875,
+=======
+											"width": 273.9775390625,
+>>>>>>> fd
+>>>>>>> 3231000e7bcde7a8edbd1f8064c67ba37ddb1157
 											"height": 13,
 											"text": "Notifier"
 										},
@@ -5656,7 +5664,15 @@
 									"font": "Arial;13;0",
 									"left": 1880,
 									"top": 576,
+<<<<<<< HEAD
 									"width": 283.9775390625,
+=======
+<<<<<<< HEAD
+									"width": 254.5498046875,
+=======
+									"width": 283.9775390625,
+>>>>>>> fd
+>>>>>>> 3231000e7bcde7a8edbd1f8064c67ba37ddb1157
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAFsv2kEclLLaCo="
@@ -5694,7 +5710,15 @@
 											"font": "Arial;13;0",
 											"left": 1885,
 											"top": 606,
+<<<<<<< HEAD
 											"width": 273.9775390625,
+=======
+<<<<<<< HEAD
+											"width": 244.5498046875,
+=======
+											"width": 273.9775390625,
+>>>>>>> fd
+>>>>>>> 3231000e7bcde7a8edbd1f8064c67ba37ddb1157
 											"height": 13,
 											"text": "+m_destinations: vector<string>",
 											"horizontalAlignment": 0
@@ -5704,7 +5728,15 @@
 									"font": "Arial;13;0",
 									"left": 1880,
 									"top": 601,
+<<<<<<< HEAD
 									"width": 283.9775390625,
+=======
+<<<<<<< HEAD
+									"width": 254.5498046875,
+=======
+									"width": 283.9775390625,
+>>>>>>> fd
+>>>>>>> 3231000e7bcde7a8edbd1f8064c67ba37ddb1157
 									"height": 23
 								},
 								{
@@ -5730,7 +5762,15 @@
 											"font": "Arial;13;0",
 											"left": 1885,
 											"top": 629,
+<<<<<<< HEAD
 											"width": 273.9775390625,
+=======
+<<<<<<< HEAD
+											"width": 244.5498046875,
+=======
+											"width": 273.9775390625,
+>>>>>>> fd
+>>>>>>> 3231000e7bcde7a8edbd1f8064c67ba37ddb1157
 											"height": 13,
 											"text": "+Notifier()",
 											"horizontalAlignment": 0
@@ -5748,7 +5788,15 @@
 											"font": "Arial;13;0",
 											"left": 1885,
 											"top": 644,
+<<<<<<< HEAD
 											"width": 273.9775390625,
+=======
+<<<<<<< HEAD
+											"width": 244.5498046875,
+=======
+											"width": 273.9775390625,
+>>>>>>> fd
+>>>>>>> 3231000e7bcde7a8edbd1f8064c67ba37ddb1157
 											"height": 13,
 											"text": "+Notifier(const vector string&)",
 											"horizontalAlignment": 0
@@ -5766,7 +5814,15 @@
 											"font": "Arial;13;0",
 											"left": 1885,
 											"top": 659,
+<<<<<<< HEAD
 											"width": 273.9775390625,
+=======
+<<<<<<< HEAD
+											"width": 244.5498046875,
+=======
+											"width": 273.9775390625,
+>>>>>>> fd
+>>>>>>> 3231000e7bcde7a8edbd1f8064c67ba37ddb1157
 											"height": 13,
 											"text": "+AddDestination(const string&): RetVal",
 											"horizontalAlignment": 0
@@ -5784,7 +5840,15 @@
 											"font": "Arial;13;0",
 											"left": 1885,
 											"top": 674,
+<<<<<<< HEAD
 											"width": 273.9775390625,
+=======
+<<<<<<< HEAD
+											"width": 244.5498046875,
+=======
+											"width": 273.9775390625,
+>>>>>>> fd
+>>>>>>> 3231000e7bcde7a8edbd1f8064c67ba37ddb1157
 											"height": 13,
 											"text": "+NotifyAlarm(const time_t&): RetVal",
 											"horizontalAlignment": 0
@@ -5802,7 +5866,15 @@
 											"font": "Arial;13;0",
 											"left": 1885,
 											"top": 689,
+<<<<<<< HEAD
 											"width": 273.9775390625,
+=======
+<<<<<<< HEAD
+											"width": 244.5498046875,
+=======
+											"width": 273.9775390625,
+>>>>>>> fd
+>>>>>>> 3231000e7bcde7a8edbd1f8064c67ba37ddb1157
 											"height": 13,
 											"text": "+NotifyAlert(const time_t&): RetVal",
 											"horizontalAlignment": 0
@@ -5830,8 +5902,18 @@
 									"font": "Arial;13;0",
 									"left": 1880,
 									"top": 624,
+<<<<<<< HEAD
 									"width": 283.9775390625,
 									"height": 98
+=======
+<<<<<<< HEAD
+									"width": 254.5498046875,
+									"height": 83
+=======
+									"width": 283.9775390625,
+									"height": 98
+>>>>>>> fd
+>>>>>>> 3231000e7bcde7a8edbd1f8064c67ba37ddb1157
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -5873,8 +5955,18 @@
 							"containerChangeable": true,
 							"left": 1880,
 							"top": 576,
+<<<<<<< HEAD
 							"width": 283.9775390625,
 							"height": 146,
+=======
+<<<<<<< HEAD
+							"width": 254.5498046875,
+							"height": 131,
+=======
+							"width": 283.9775390625,
+							"height": 146,
+>>>>>>> fd
+>>>>>>> 3231000e7bcde7a8edbd1f8064c67ba37ddb1157
 							"nameCompartment": {
 								"$ref": "AAAAAAFsv2kEclLKjhA="
 							},
