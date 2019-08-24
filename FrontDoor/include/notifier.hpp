@@ -24,6 +24,8 @@ namespace hcv
 
 			RetVal NotifyAlert(const time_t&);
 
+			RetVal GetDestination(const uint8_t&, string*);
+
 		private:
 			vector<string> m_destinations;
 	};
