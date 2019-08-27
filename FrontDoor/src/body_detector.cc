@@ -23,6 +23,9 @@ namespace hcv
 		PRINT("BodyDetector destroyed.");
 	}
 
-	//bool BodyDetector::DetectBody(const cv::Mat& i_img) {}
+	bool BodyDetector::DetectBody(const cv::Mat& i_img)
+	{
+		return false;
+	}
 
 } // namespace hcv

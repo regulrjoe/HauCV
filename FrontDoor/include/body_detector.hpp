@@ -14,7 +14,7 @@ namespace hcv
 
 			~BodyDetector();
 
-			//bool DetectBody(const cv::Mat&);
+			bool DetectBody(const cv::Mat&);
 	};
 
 } // namespace hcv
