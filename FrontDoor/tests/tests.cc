@@ -59,6 +59,11 @@ namespace {
 	// IsTimeToStopRecording().
 	TEST(FDTimerTest, IsTimeToStopRecording)
 	{
+		/*
+		 * TRUE: When i_time - FDTimer.m_last_body_last_detected >= FDTimer.m_seconds_to_stop_recording
+		 * FALSE: Otherwise.
+		 */
+
 		FDTimer timer(0 /*seconds_to_sound_alarm*/,
 				1 /*seconds_to_stop_alarm*/,
 				1 /*seconds_to_stop_recording*/);
@@ -76,7 +81,7 @@ namespace {
 	////// NOTIFIER //////
 	//////////////////////
 
-	// AddDestination().
+	// AddDestination() & GetDestination().
 	TEST(NotifierTest, AddAndGetDestination)
 	{
 		Notifier notifier;
@@ -87,6 +92,31 @@ namespace {
 		EXPECT_EQ(tmp, "Destination");
 		EXPECT_EQ(notifier.AddDestination(""), RetVal::NOTOK);
 		EXPECT_EQ(notifier.GetDestination(1, &tmp), RetVal::NOTOK);
+	}
+
+	// NotifyAlarm()
+	TEST(NotifierTest, NotifyAlarm)
+	{
+		Notifier notifier;
+
+		EXPECT_EQ(
+				notifier.NotifyAlarm(
+					system_clock::to_time_t(
+						system_clock::now())),
+				RetVal::OK);
+
+	}
+
+	// NotifyAlert()
+	TEST(NotifierTest, NotifyAlert)
+	{
+		Notifier notifier;
+
+		EXPECT_EQ(
+				notifier.NotifyAlert(
+					system_clock::to_time_t(
+						system_clock::now())),
+				RetVal::OK);
 	}
 
 } // namespace
