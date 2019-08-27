@@ -15,6 +15,7 @@ add_library(fdlib
 		../src/fd_timer.cc
 		../src/notifier.cc
 		../src/retval.cc
+		../src/sound_controller.cc
 )
 
 

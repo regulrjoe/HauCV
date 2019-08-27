@@ -2,7 +2,7 @@
 #include "fd_timer.hpp"
 #include "notifier.hpp"
 #include "retval.hpp"
-#include "soundcontroller.hpp"
+#include "sound_controller.hpp"
 
 #include <gtest/gtest.h>
 #include <opencv2/opencv.hpp>
@@ -195,6 +195,43 @@ namespace {
 						system_clock::now())),
 				RetVal::OK);
 	}
+
+	/////////////////////////////
+	///// SOUND CONTROLLER  /////
+	/////////////////////////////
+	
+	// SoundAlarm() & StopAlarm()
+	TEST(SoundControllerTest, SoundAndStopAlarm)
+	{
+		SoundController sound;
+
+		EXPECT_EQ(sound.SoundAlarm(), RetVal::OK);
+		EXPECT_TRUE(sound.IsAlarmOn());
+
+		EXPECT_EQ(sound.SoundAlarm(), RetVal::NOTOK); // Alarm is already sounding.
+		EXPECT_TRUE(sound.IsAlarmOn());
+
+		EXPECT_EQ(sound.StopAlarm(), RetVal::OK);
+		EXPECT_FALSE(sound.IsAlarmOn());
+
+		EXPECT_EQ(sound.StopAlarm(), RetVal::NOTOK); // Alarm is already off.
+		EXPECT_FALSE(sound.IsAlarmOn());
+
+		EXPECT_EQ(sound.SoundAlarm(), RetVal::OK);
+		EXPECT_TRUE(sound.IsAlarmOn());
+
+		EXPECT_EQ(sound.StopAlarm(), RetVal::OK);
+		EXPECT_FALSE(sound.IsAlarmOn());
+	}
+	
+	// SoundAlert().
+	TEST(SoundControllerTest, SoundAlert)
+	{
+		SoundController sound;
+
+		EXPECT_EQ(sound.SoundAlert(), RetVal::OK);
+	}
+
 
 } // namespace
 
