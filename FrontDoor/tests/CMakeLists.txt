@@ -16,6 +16,7 @@ add_library(fdlib
 		../src/notifier.cc
 		../src/retval.cc
 		../src/sound_controller.cc
+		../src/video_recorder.cc
 )
 
 
