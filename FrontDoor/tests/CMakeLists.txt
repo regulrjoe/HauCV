@@ -54,6 +54,7 @@ add_executable(tests tests.cc)
 target_include_directories(tests
 	PRIVATE
 		${CMAKE_CURRENT_SOURCE_DIR}/../include
+		${CMAKE_CURRENT_SOURCE_DIR}/include
 		/opt/googletest/include
 )
 
