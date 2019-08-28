@@ -5578,7 +5578,25 @@
 											"top": 947,
 											"width": 182.9267578125,
 											"height": 13,
-											"text": "+StopAndStore(): RetVal",
+											"text": "+Stop(): RetVal",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAFs02MAbfSiJlQ=",
+											"_parent": {
+												"$ref": "AAAAAAFsv2jNbFG6NaA="
+											},
+											"model": {
+												"$ref": "AAAAAAFs02MAK/SN094="
+											},
+											"lineColor": "#14367b",
+											"font": "Arial;13;0",
+											"left": 1885,
+											"top": 962,
+											"width": 182.9267578125,
+											"height": 13,
+											"text": "+Store(): RetVal",
 											"horizontalAlignment": 0
 										}
 									],
@@ -5587,7 +5605,7 @@
 									"left": 1880,
 									"top": 912,
 									"width": 192.9267578125,
-									"height": 53
+									"height": 68
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -5630,7 +5648,7 @@
 							"left": 1880,
 							"top": 864,
 							"width": 192.9267578125,
-							"height": 101,
+							"height": 116,
 							"nameCompartment": {
 								"$ref": "AAAAAAFsv2jNbFG02mY="
 							},
@@ -10896,13 +10914,34 @@
 							"_parent": {
 								"$ref": "AAAAAAFsv2jNa1GxP+g="
 							},
-							"name": "StopAndStore",
+							"name": "Stop",
 							"parameters": [
 								{
 									"_type": "UMLParameter",
 									"_id": "AAAAAAFsv3K6N2lb5G8=",
 									"_parent": {
 										"$ref": "AAAAAAFsv3KfCWkeOLw="
+									},
+									"type": {
+										"$ref": "AAAAAAFsv2xYEFh3sW4="
+									},
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAFs02MAK/SN094=",
+							"_parent": {
+								"$ref": "AAAAAAFsv2jNa1GxP+g="
+							},
+							"name": "Store",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAFs02MLbfWTs9c=",
+									"_parent": {
+										"$ref": "AAAAAAFs02MAK/SN094="
 									},
 									"type": {
 										"$ref": "AAAAAAFsv2xYEFh3sW4="
