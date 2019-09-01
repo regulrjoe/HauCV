@@ -1,5 +1,5 @@
-#include "fd_system.hpp"
-#include "fd_builder.hpp"
+#include "asv_system.hpp"
+#include "asv_builder.hpp"
 #include "retval.hpp"
 
 #include <assert.h>
@@ -15,7 +15,7 @@ int main()
 
 	assert(seconds_for_stopping_recording > seconds_for_stopping_alarm);
 
-	hcv::FDSystem* system = hcv::FDBuilder::BuildIdle(
+	hcv::asv::ASVSystem* system = hcv::asv::ASVBuilder::BuildIdle(
 			seconds_for_starting_alarm, 
 			seconds_for_stopping_alarm, 
 			seconds_for_stopping_recording);

@@ -1,30 +1,31 @@
-#ifndef FD_TIMER_TESTS_HPP
-#define FD_TIMER_TESTS_HPP
+#ifndef ASV_TIMER_TESTS_HPP
+#define ASV_TIMER_TESTS_HPP
 
-#include "fd_timer.hpp"
+#include "asv_timer.hpp"
 #include "retval.hpp"
 
 #include <gtest/gtest.h>
 
 using namespace hcv;
+using namespace hcv::asv;
 using namespace std;
 using namespace std::chrono;
 
 namespace {
 
 	/////////////////////////////
-	///////// FD TIMER //////////
+	///////// ASV TIMER //////////
 	/////////////////////////////
 
 	// IsTimeToSoundAlarm().
-	TEST(FDTimerTest, IsTimeToSoundAlarm)
+	TEST(ASVTimerTest, IsTimeToSoundAlarm)
 	{
 		/*
-		 * TRUE: When FDTimer.m_last_body_last_detected - FDTimer.m_last_body_first_detected >= FDTimer.m_seconds_to_sound_alarm
+		 * TRUE: When ASVTimer.m_last_body_last_detected - ASVTimer.m_last_body_first_detected >= ASVTimer.m_seconds_to_sound_alarm
 		 * FALSE: Otherwise.
 		 */
 
-		FDTimer timer(1 /*seconds_to_sound_alarm*/);
+		ASVTimer timer(1 /*seconds_to_sound_alarm*/);
 
 		EXPECT_FALSE(timer.IsTimeToSoundAlarm());
 
@@ -36,14 +37,14 @@ namespace {
 	}
 
 	// IsTimeToStopAlarm().
-	TEST(FDTimerTest, IsTimeToStopAlarm)
+	TEST(ASVTimerTest, IsTimeToStopAlarm)
 	{
 		/*
-		 * TRUE: When i_time - FDTimer.m_last_body_last_detected >= FDTimer.m_seconds_to_stop_alarm
+		 * TRUE: When i_time - ASVTimer.m_last_body_last_detected >= ASVTimer.m_seconds_to_stop_alarm
 		 * FALSE: Otherwise.
 		 */
 
-		FDTimer timer(0 /*seconds_to_sound_alarm*/, 
+		ASVTimer timer(0 /*seconds_to_sound_alarm*/, 
 				1 /*seconds_to_stop_alarm*/);
 
 		EXPECT_FALSE(timer.IsTimeToStopAlarm());
@@ -56,14 +57,14 @@ namespace {
 	}
 
 	// IsTimeToStopRecording().
-	TEST(FDTimerTest, IsTimeToStopRecording)
+	TEST(ASVTimerTest, IsTimeToStopRecording)
 	{
 		/*
-		 * TRUE: When i_time - FDTimer.m_last_body_last_detected >= FDTimer.m_seconds_to_stop_recording
+		 * TRUE: When i_time - ASVTimer.m_last_body_last_detected >= ASVTimer.m_seconds_to_stop_recording
 		 * FALSE: Otherwise.
 		 */
 
-		FDTimer timer(0 /*seconds_to_sound_alarm*/,
+		ASVTimer timer(0 /*seconds_to_sound_alarm*/,
 				1 /*seconds_to_stop_alarm*/,
 				1 /*seconds_to_stop_recording*/);
 
@@ -78,4 +79,4 @@ namespace {
 
 } // namespace
 
-#endif // FD_TIMER_TESTS_HPP
+#endif // ASV_TIMER_TESTS_HPP
