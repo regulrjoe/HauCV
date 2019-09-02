@@ -19,7 +19,8 @@ namespace hcv
 		SRVSystem* SRVBuilder::BuildAlert(
 				const uint8_t& i_seconds_to_sound_alarm,
 				const uint8_t& i_seconds_to_stop_alarm,
-				const uint8_t& i_seconds_to_stop_recording
+				const uint8_t& i_seconds_to_stop_recording,
+				const uint8_t& i_motion_detector_minimum_area
 				)
 		{
 			PRINT("Building Alert System.");
@@ -46,7 +47,8 @@ namespace hcv
 		SRVSystem* SRVBuilder::BuildIdle(
 				const uint8_t& i_seconds_to_sound_alarm,
 				const uint8_t& i_seconds_to_stop_alarm,
-				const uint8_t& i_seconds_to_stop_recording
+				const uint8_t& i_seconds_to_stop_recording,
+				const uint8_t& i_motion_detector_minimum_area
 				)
 		{
 			PRINT("Building Idle System.");
