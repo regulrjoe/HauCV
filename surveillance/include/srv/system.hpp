@@ -4,7 +4,7 @@
 #include "srv/state.hpp"
 #include "srv/timer.hpp"
 
-#include "body_detector.hpp"
+#include "motion_detector.hpp"
 #include "notifier.hpp"
 #include "retval.hpp"
 
@@ -26,7 +26,7 @@ namespace hcv
 		{
 			//// Methods
 			public:
-				SRVSystem(BodyDetector* const, SRVTimer* const, ISRVBaseState* const, Notifier* const);
+				SRVSystem(MotionDetector* const, SRVTimer* const, ISRVBaseState* const, Notifier* const);
 
 				~SRVSystem();
 
@@ -41,13 +41,13 @@ namespace hcv
 	//
 	//			RetVal changeCurrentState(const ISRVState*);
 	//
-	//			RetVal handleFrameWithBody();
+	//			RetVal handleFrameWithMotion();
 	//
-	//			RetVal handleFrameWithNoBody();
+	//			RetVal handleFrameWithNoMotion();
 
 			//// Data
 			private:
-				BodyDetector* m_p_body_detector;
+				MotionDetector* m_p_motion_detector;
 
 				SRVTimer* m_p_timer;
 

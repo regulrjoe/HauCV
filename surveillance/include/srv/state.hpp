@@ -14,8 +14,8 @@ namespace hcv
 		class ISRVState
 		{
 			public:
-				//virtual bool HandleBody(SRVSystem&);
-				//virtual bool HandleNoBody(SRVSystem&);
+				//virtual bool HandleMotion(SRVSystem&);
+				//virtual bool HandleNoMotion(SRVSystem&);
 
 			protected:
 				//bool changeBaseState(SRVSystem&, const ISRVBaseState*);

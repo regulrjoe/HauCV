@@ -15,11 +15,11 @@ namespace hcv
 	{
 		///////////////////////////
 		SRVSystem::SRVSystem(
-				BodyDetector* const i_p_body_detector,
+				MotionDetector* const i_p_motion_detector,
 				SRVTimer* const i_p_timer,
 				ISRVBaseState* const i_p_base_state,
 				Notifier* const i_p_notifier) :
-			m_p_body_detector(i_p_body_detector),
+			m_p_motion_detector(i_p_motion_detector),
 			m_p_base_system_state(i_p_base_state),
 			m_p_timer(i_p_timer),
 			m_p_current_system_state(i_p_base_state),
@@ -31,7 +31,7 @@ namespace hcv
 		///////////////////////////
 		SRVSystem::~SRVSystem()
 		{
-			delete m_p_body_detector;
+			delete m_p_motion_detector;
 			delete m_p_base_system_state;
 			delete m_p_current_system_state;
 			delete m_p_timer;

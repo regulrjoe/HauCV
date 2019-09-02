@@ -1,7 +1,7 @@
-#ifndef BODY_DETECTOR_TESTS_HPP
-#define BODY_DETECTOR_TESTS_HPP
+#ifndef MOTION_DETECTOR_TESTS_HPP
+#define MOTION_DETECTOR_TESTS_HPP
 
-#include "body_detector.hpp"
+#include "motion_detector.hpp"
 
 #include <gtest/gtest.h>
 #include <opencv2/opencv.hpp>
@@ -12,10 +12,10 @@ using namespace hcv;
 namespace {
 
 	/////////////////////////////
-	/////// BODY DETECTOR  //////
+	/////// MOTION DETECTOR  //////
 	/////////////////////////////
 
-	// DetectBody() On Image in Color with Body.
+	// DetectMotion() On Image in Color with Body.
 //	TEST(BodyDetectorTest, ImageWithBodyInColor)
 //	{
 //		Mat image_body1 = imread("./img/body1.jpg", IMREAD_COLOR);
@@ -86,4 +86,4 @@ namespace {
 
 } // namespace
 
-#endif // BODY_DETECTOR_TESTS_HPP
+#endif // MOTION_DETECTOR_TESTS_HPP

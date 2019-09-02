@@ -17,8 +17,7 @@ namespace hcv
 			m_seconds_to_sound_alarm(i_SRVTimer.m_seconds_to_sound_alarm),
 			m_seconds_to_stop_alarm(i_SRVTimer.m_seconds_to_stop_alarm),
 			m_seconds_to_stop_recording(i_SRVTimer.m_seconds_to_stop_recording),
-			m_last_body_first_detected(i_SRVTimer.m_last_body_first_detected),
-			m_last_body_last_detected(i_SRVTimer.m_last_body_last_detected)
+			m_motion_timestamps(i_SRVTimer.m_motion_timestamps)
 		{
 			PRINT("SRVTimer constructed by copy.");
 		}
@@ -33,7 +32,7 @@ namespace hcv
 			m_seconds_to_stop_alarm(i_seconds_to_stop_alarm),
 			m_seconds_to_stop_recording(i_seconds_to_stop_recording)
 		{
-			this->UpdateLastBodyTimers();
+			this->UpdateMotionTimestamps();
 
 			PRINT("SRVTimer constructed with parameters.");
 		}
@@ -47,7 +46,7 @@ namespace hcv
 		////////////////////
 		bool SRVTimer::IsTimeToSoundAlarm()
 		{
-			if (m_last_body_last_detected - m_last_body_first_detected >= m_seconds_to_sound_alarm)
+			if (m_motion_timestamps.second - m_motion_timestamps.first >= m_seconds_to_sound_alarm)
 				return true;
 			else
 				return false;
@@ -57,7 +56,7 @@ namespace hcv
 		////////////////////
 		bool SRVTimer::IsTimeToStopAlarm(const time_t& i_time /* = system_clock::to_time_t(system_clock::now()) */)
 		{
-			if(i_time - m_last_body_last_detected >= m_seconds_to_stop_alarm)
+			if(i_time - m_motion_timestamps.second >= m_seconds_to_stop_alarm)
 				return true;
 			else
 				return false;
@@ -66,26 +65,26 @@ namespace hcv
 		////////////////////
 		bool SRVTimer::IsTimeToStopRecording(const time_t& i_time /* = system_clock::to_time_t(system_clock::now()) */)
 		{
-			if(i_time - m_last_body_last_detected >= m_seconds_to_stop_recording)
+			if(i_time - m_motion_timestamps.second >= m_seconds_to_stop_recording)
 				return true;
 			else
 				return false;
 		}
 
 		////////////////////
-		void SRVTimer::UpdateLastBodyTimers(const time_t& i_time /* = system_clock::to_time_t(system_clock::now()) */)
+		void SRVTimer::UpdateMotionTimestamps(const time_t& i_time /* = system_clock::to_time_t(system_clock::now()) */)
 		{
-			m_last_body_first_detected = m_last_body_last_detected = i_time;
+			m_motion_timestamps.first = m_motion_timestamps.second = i_time;
 
-			PRINT("SRVTimer: Last body timers updated to: " << ctime(&m_last_body_first_detected));
+			PRINT("SRVTimer: Motion timestamps updated to: " << ctime(&m_motion_timestamps.first));
 		}
 
 		////////////////////
-		void SRVTimer::UpdateLastBodyLastDetectedTimer(const time_t& i_time /* = system_clock::to_time_t(system_clock::now()) */)
+		void SRVTimer::UpdateLastMotionTimestamp(const time_t& i_time /* = system_clock::to_time_t(system_clock::now()) */)
 		{
-			m_last_body_last_detected = i_time;
+			m_motion_timestamps.second = i_time;
 
-			PRINT("SRVTimer: Last body last detected timer updated to: " << ctime(&m_last_body_last_detected));
+			PRINT("SRVTimer: Last motion timestamp updated to: " << ctime(&m_motion_timestamps.second));
 		}
 
 	} // namespace srv

@@ -4,6 +4,7 @@
 #include <cstdint>
 #include <ctime>
 #include <chrono>
+#include <utility>
 
 using namespace std;
 using namespace std::chrono;
@@ -31,15 +32,13 @@ namespace hcv
 
 				bool IsTimeToStopRecording(const time_t& = system_clock::to_time_t(system_clock::now()));
 
-				void UpdateLastBodyTimers(const time_t& = system_clock::to_time_t(system_clock::now()));
+				void UpdateMotionTimestamps(const time_t& = system_clock::to_time_t(system_clock::now()));
 
-				void UpdateLastBodyLastDetectedTimer(const time_t& = system_clock::to_time_t(system_clock::now()));
+				void UpdateLastMotionTimestamp(const time_t& = system_clock::to_time_t(system_clock::now()));
 			
 			//// Data
 			private:
-				time_t m_last_body_first_detected;
-				
-				time_t m_last_body_last_detected;
+				pair<time_t, time_t> m_motion_timestamps;
 
 				uint8_t m_seconds_to_sound_alarm;
 

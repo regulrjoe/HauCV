@@ -1,4 +1,4 @@
-#include "body_detector_tests.hpp"
+#include "motion_detector_tests.hpp"
 #include "srv_timer_tests.hpp"
 #include "notifier_tests.hpp"
 #include "sound_controller_tests.hpp"

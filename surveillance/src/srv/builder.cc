@@ -3,7 +3,7 @@
 #include "srv/state.hpp"
 #include "srv/timer.hpp"
 
-#include "body_detector.hpp"
+#include "motion_detector.hpp"
 #include "macros.hpp"
 #include "notifier.hpp"
 
@@ -24,7 +24,7 @@ namespace hcv
 		{
 			PRINT("Building Alert System.");
 
-			BodyDetector* body_detector = new BodyDetector();
+			MotionDetector* motion_detector = new MotionDetector();
 
 			Notifier* notifier = new Notifier();
 
@@ -35,7 +35,7 @@ namespace hcv
 					);
 
 			return new SRVSystem(
-					body_detector,
+					motion_detector,
 					timer,
 					AlertState::InstanceAsBase(),
 					notifier
@@ -51,7 +51,7 @@ namespace hcv
 		{
 			PRINT("Building Idle System.");
 
-			BodyDetector* body_detector = new BodyDetector();
+			MotionDetector* motion_detector = new MotionDetector();
 
 			Notifier* notifier = new Notifier();
 
@@ -61,7 +61,7 @@ namespace hcv
 						i_seconds_to_stop_recording
 					);
 			return new SRVSystem(
-					body_detector,
+					motion_detector,
 					timer,
 					IdleState::InstanceAsBase(),
 					notifier

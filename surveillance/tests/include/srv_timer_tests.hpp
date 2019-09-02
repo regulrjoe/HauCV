@@ -21,7 +21,7 @@ namespace {
 	TEST(SRVTimerTest, IsTimeToSoundAlarm)
 	{
 		/*
-		 * TRUE: When SRVTimer.m_last_body_last_detected - SRVTimer.m_last_body_first_detected >= SRVTimer.m_seconds_to_sound_alarm
+		 * TRUE: When SRVTimer.m_motion_timestamps.second - SRVTimer.m_motion_timestamps.first >= SRVTimer.m_seconds_to_sound_alarm
 		 * FALSE: Otherwise.
 		 */
 
@@ -29,10 +29,10 @@ namespace {
 
 		EXPECT_FALSE(timer.IsTimeToSoundAlarm());
 
-		timer.UpdateLastBodyLastDetectedTimer(system_clock::to_time_t(system_clock::now()) + 1);
+		timer.UpdateLastMotionTimestamp(system_clock::to_time_t(system_clock::now()) + 1);
 		EXPECT_TRUE(timer.IsTimeToSoundAlarm());
 
-		timer.UpdateLastBodyTimers();
+		timer.UpdateMotionTimestamps();
 		EXPECT_FALSE(timer.IsTimeToSoundAlarm());
 	}
 
@@ -40,7 +40,7 @@ namespace {
 	TEST(SRVTimerTest, IsTimeToStopAlarm)
 	{
 		/*
-		 * TRUE: When i_time - SRVTimer.m_last_body_last_detected >= SRVTimer.m_seconds_to_stop_alarm
+		 * TRUE: When i_time - SRVTimer.m_motion_timestamps.second >= SRVTimer.m_seconds_to_stop_alarm
 		 * FALSE: Otherwise.
 		 */
 
@@ -49,10 +49,10 @@ namespace {
 
 		EXPECT_FALSE(timer.IsTimeToStopAlarm());
 
-		timer.UpdateLastBodyTimers(system_clock::to_time_t(system_clock::now()) - 1);
+		timer.UpdateMotionTimestamps(system_clock::to_time_t(system_clock::now()) - 1);
 		EXPECT_TRUE(timer.IsTimeToStopAlarm());
 
-		timer.UpdateLastBodyTimers();
+		timer.UpdateMotionTimestamps();
 		EXPECT_FALSE(timer.IsTimeToStopAlarm());
 	}
 
@@ -60,7 +60,7 @@ namespace {
 	TEST(SRVTimerTest, IsTimeToStopRecording)
 	{
 		/*
-		 * TRUE: When i_time - SRVTimer.m_last_body_last_detected >= SRVTimer.m_seconds_to_stop_recording
+		 * TRUE: When i_time - SRVTimer.m_motion_timestamps.second >= SRVTimer.m_seconds_to_stop_recording
 		 * FALSE: Otherwise.
 		 */
 
@@ -70,10 +70,10 @@ namespace {
 
 		EXPECT_FALSE(timer.IsTimeToStopRecording());
 
-		timer.UpdateLastBodyTimers(system_clock::to_time_t(system_clock::now()) - 1);
+		timer.UpdateMotionTimestamps(system_clock::to_time_t(system_clock::now()) - 1);
 		EXPECT_TRUE(timer.IsTimeToStopRecording());
 
-		timer.UpdateLastBodyTimers();
+		timer.UpdateMotionTimestamps();
 		EXPECT_FALSE(timer.IsTimeToStopRecording());
 	}
 

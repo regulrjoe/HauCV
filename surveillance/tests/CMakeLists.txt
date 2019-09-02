@@ -8,7 +8,7 @@ set(OPENCV_VERSION 4.0.1)
 # Create library
 add_library(srvlib
 	STATIC
-		../src/body_detector.cc
+		../src/motion_detector.cc
 		../src/notifier.cc
 		../src/retval.cc
 		../src/sound_controller.cc
