@@ -16,73 +16,22 @@ namespace {
 	/////////////////////////////
 
 	// DetectMotion() On Image in Color with Body.
-//	TEST(BodyDetectorTest, ImageWithBodyInColor)
-//	{
-//		Mat image_body1 = imread("./img/body1.jpg", IMREAD_COLOR);
-//		Mat image_body2 = imread("./img/body2.jpg", IMREAD_COLOR);
-//		Mat image_body3 = imread("./img/body3.jpg", IMREAD_COLOR);
-//
-//		assert(image_body1.data != 0);
-//		assert(image_body2.data != 0);
-//		assert(image_body3.data != 0);
-//
-//		BodyDetector detector;
-//
-//		EXPECT_TRUE(detector.DetectBody(image_body1));
-//		EXPECT_TRUE(detector.DetectBody(image_body2));
-//		EXPECT_TRUE(detector.DetectBody(image_body3));
-//	}
-	
-	// DetectBody() On Image in Grayscale with Body.
-//	TEST(BodyDetectorTest, ImageWithBodyInGrayscale)
-//	{
-//		Mat image_body_ir1 = imread("./img/body-ir1.jpg", IMREAD_GRAYSCALE);
-//		Mat image_body1 = imread("./img/body1.jpg", IMREAD_GRAYSCALE);
-//		Mat image_body2 = imread("./img/body2.jpg", IMREAD_GRAYSCALE);
-//		Mat image_body3 = imread("./img/body3.jpg", IMREAD_GRAYSCALE);
-//
-//		assert(image_body_ir1.data != 0);
-//		assert(image_body1.data != 0);
-//		assert(image_body2.data != 0);
-//		assert(image_body3.data != 0);
-//
-//		BodyDetector detector;
-//
-//		EXPECT_TRUE(detector.DetectBody(image_body_ir1));
-//		EXPECT_TRUE(detector.DetectBody(image_body1));
-//		EXPECT_TRUE(detector.DetectBody(image_body2));
-//		EXPECT_TRUE(detector.DetectBody(image_body3));
-//	}
+	TEST(DetectMotionTest, ImageWithBody)
+	{
+		Mat base_image = imread("./img/1_base.jpg", IMREAD_COLOR);
+		Mat test_image1 = imread("./img/1_body1.jpg", IMREAD_COLOR);
+		Mat test_image2 = imread("./img/1_body2.jpg", IMREAD_COLOR);
 
-	// DetectBody() On Image in Color without Body.
-//	TEST(BodyDetectorTest, ImageWithoutBodyInColor)
-//	{
-//		Mat image_nobody1 = imread("./img/nobody1.jpg", IMREAD_COLOR);
-//		Mat image_nobody2 = imread("./img/nobody2.jpg", IMREAD_COLOR);
-//
-//		assert(image_nobody1.data != 0);
-//		assert(image_nobody2.data != 0);
-//
-//		BodyDetector detector;
-//
-//		EXPECT_FALSE(detector.DetectBody(image_nobody1));
-//		EXPECT_FALSE(detector.DetectBody(image_nobody2));
-//	}
-	
-	// DetectBody() On Image in Grayscale without Body.
-//	TEST(BodyDetectorTest, ImageWithoutBodyInGrayscale)
-//	{
-//		Mat image_nobody1 = imread("./img/nobody1.jpg", IMREAD_GRAYSCALE);
-//		Mat image_nobody2 = imread("./img/nobody2.jpg", IMREAD_GRAYSCALE);
-//
-//		assert(image_nobody1.data != 0);
-//		assert(image_nobody2.data != 0);
-//
-//		BodyDetector detector;
-//
-//		EXPECT_FALSE(detector.DetectBody(image_nobody1));
-//		EXPECT_FALSE(detector.DetectBody(image_nobody2));
-//	}
+		assert(base_image.data != 0);
+		assert(test_image1.data != 0);
+		assert(test_image2.data != 0);
+
+		MotionDetector detector;
+
+		EXPECT_TRUE(detector.DetectMotion(test_image1));
+		EXPECT_TRUE(detector.DetectMotion(test_image2));
+		EXPECT_FALSE(detector.DetectMotion(base_image));
+	}
 
 } // namespace
 
