@@ -1,31 +1,31 @@
-#ifndef ASV_TIMER_TESTS_HPP
-#define ASV_TIMER_TESTS_HPP
+#ifndef SRV_TIMER_TESTS_HPP
+#define SRV_TIMER_TESTS_HPP
 
-#include "asv_timer.hpp"
+#include "srv/timer.hpp"
 #include "retval.hpp"
 
 #include <gtest/gtest.h>
 
 using namespace hcv;
-using namespace hcv::asv;
+using namespace hcv::srv;
 using namespace std;
 using namespace std::chrono;
 
 namespace {
 
 	/////////////////////////////
-	///////// ASV TIMER //////////
+	///////// SRV TIMER //////////
 	/////////////////////////////
 
 	// IsTimeToSoundAlarm().
-	TEST(ASVTimerTest, IsTimeToSoundAlarm)
+	TEST(SRVTimerTest, IsTimeToSoundAlarm)
 	{
 		/*
-		 * TRUE: When ASVTimer.m_last_body_last_detected - ASVTimer.m_last_body_first_detected >= ASVTimer.m_seconds_to_sound_alarm
+		 * TRUE: When SRVTimer.m_last_body_last_detected - SRVTimer.m_last_body_first_detected >= SRVTimer.m_seconds_to_sound_alarm
 		 * FALSE: Otherwise.
 		 */
 
-		ASVTimer timer(1 /*seconds_to_sound_alarm*/);
+		SRVTimer timer(1 /*seconds_to_sound_alarm*/);
 
 		EXPECT_FALSE(timer.IsTimeToSoundAlarm());
 
@@ -37,14 +37,14 @@ namespace {
 	}
 
 	// IsTimeToStopAlarm().
-	TEST(ASVTimerTest, IsTimeToStopAlarm)
+	TEST(SRVTimerTest, IsTimeToStopAlarm)
 	{
 		/*
-		 * TRUE: When i_time - ASVTimer.m_last_body_last_detected >= ASVTimer.m_seconds_to_stop_alarm
+		 * TRUE: When i_time - SRVTimer.m_last_body_last_detected >= SRVTimer.m_seconds_to_stop_alarm
 		 * FALSE: Otherwise.
 		 */
 
-		ASVTimer timer(0 /*seconds_to_sound_alarm*/, 
+		SRVTimer timer(0 /*seconds_to_sound_alarm*/, 
 				1 /*seconds_to_stop_alarm*/);
 
 		EXPECT_FALSE(timer.IsTimeToStopAlarm());
@@ -57,14 +57,14 @@ namespace {
 	}
 
 	// IsTimeToStopRecording().
-	TEST(ASVTimerTest, IsTimeToStopRecording)
+	TEST(SRVTimerTest, IsTimeToStopRecording)
 	{
 		/*
-		 * TRUE: When i_time - ASVTimer.m_last_body_last_detected >= ASVTimer.m_seconds_to_stop_recording
+		 * TRUE: When i_time - SRVTimer.m_last_body_last_detected >= SRVTimer.m_seconds_to_stop_recording
 		 * FALSE: Otherwise.
 		 */
 
-		ASVTimer timer(0 /*seconds_to_sound_alarm*/,
+		SRVTimer timer(0 /*seconds_to_sound_alarm*/,
 				1 /*seconds_to_stop_alarm*/,
 				1 /*seconds_to_stop_recording*/);
 
@@ -79,4 +79,4 @@ namespace {
 
 } // namespace
 
-#endif // ASV_TIMER_TESTS_HPP
+#endif // SRV_TIMER_TESTS_HPP

@@ -1,4 +1,4 @@
-#include "asv_system.hpp"
+#include "srv/system.hpp"
 
 #include "macros.hpp"
 
@@ -11,13 +11,13 @@ using namespace std;
 
 namespace hcv
 {
-	namespace asv
+	namespace srv
 	{
 		///////////////////////////
-		ASVSystem::ASVSystem(
+		SRVSystem::SRVSystem(
 				BodyDetector* const i_p_body_detector,
-				ASVTimer* const i_p_timer,
-				IASVBaseState* const i_p_base_state,
+				SRVTimer* const i_p_timer,
+				ISRVBaseState* const i_p_base_state,
 				Notifier* const i_p_notifier) :
 			m_p_body_detector(i_p_body_detector),
 			m_p_base_system_state(i_p_base_state),
@@ -25,11 +25,11 @@ namespace hcv
 			m_p_current_system_state(i_p_base_state),
 			m_p_notifier(i_p_notifier)
 		{
-			PRINT("ASVSystem constructed.");
+			PRINT("SRVSystem constructed.");
 		}
 
 		///////////////////////////
-		ASVSystem::~ASVSystem()
+		SRVSystem::~SRVSystem()
 		{
 			delete m_p_body_detector;
 			delete m_p_base_system_state;
@@ -37,11 +37,11 @@ namespace hcv
 			delete m_p_timer;
 			delete m_p_notifier;
 
-			PRINT("ASVSystem destroyed.");
+			PRINT("SRVSystem destroyed.");
 		}
 
 		///////////////////////////
-		RetVal ASVSystem::Start(const int& i_timer_in_secs)
+		RetVal SRVSystem::Start(const int& i_timer_in_secs)
 		{
 			// Open Camera.
 			cv::VideoCapture cap(0);
@@ -68,5 +68,5 @@ namespace hcv
 			return RetVal::OK;
 		}
 
-	} // namespace asv
+	} // namespace srv
 } // namespace hcv

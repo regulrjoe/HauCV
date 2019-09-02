@@ -1,5 +1,5 @@
-#include "asv_system.hpp"
-#include "asv_builder.hpp"
+#include "srv/system.hpp"
+#include "srv/builder.hpp"
 #include "retval.hpp"
 
 #include <assert.h>
@@ -15,7 +15,7 @@ int main()
 
 	assert(seconds_for_stopping_recording > seconds_for_stopping_alarm);
 
-	hcv::asv::ASVSystem* system = hcv::asv::ASVBuilder::BuildIdle(
+	hcv::srv::SRVSystem* system = hcv::srv::SRVBuilder::BuildIdle(
 			seconds_for_starting_alarm, 
 			seconds_for_stopping_alarm, 
 			seconds_for_stopping_recording);

@@ -1,5 +1,5 @@
 #include "body_detector_tests.hpp"
-#include "asv_timer_tests.hpp"
+#include "srv_timer_tests.hpp"
 #include "notifier_tests.hpp"
 #include "sound_controller_tests.hpp"
 #include "video_recorder_tests.hpp"

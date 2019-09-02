@@ -1,8 +1,9 @@
-#include "asv_builder.hpp"
+#include "srv/builder.hpp"
+
+#include "srv/state.hpp"
+#include "srv/timer.hpp"
 
 #include "body_detector.hpp"
-#include "asv_state.hpp"
-#include "asv_timer.hpp"
 #include "macros.hpp"
 #include "notifier.hpp"
 
@@ -12,10 +13,10 @@ using namespace std;
 
 namespace hcv
 {
-	namespace asv
+	namespace srv
 	{
 		///////////////////////////
-		ASVSystem* ASVBuilder::BuildAlert(
+		SRVSystem* SRVBuilder::BuildAlert(
 				const uint8_t& i_seconds_to_sound_alarm,
 				const uint8_t& i_seconds_to_stop_alarm,
 				const uint8_t& i_seconds_to_stop_recording
@@ -27,13 +28,13 @@ namespace hcv
 
 			Notifier* notifier = new Notifier();
 
-			ASVTimer* timer = new ASVTimer(
+			SRVTimer* timer = new SRVTimer(
 						i_seconds_to_sound_alarm,
 						i_seconds_to_stop_alarm,
 						i_seconds_to_stop_recording
 					);
 
-			return new ASVSystem(
+			return new SRVSystem(
 					body_detector,
 					timer,
 					AlertState::InstanceAsBase(),
@@ -42,7 +43,7 @@ namespace hcv
 		}
 
 		///////////////////////////
-		ASVSystem* ASVBuilder::BuildIdle(
+		SRVSystem* SRVBuilder::BuildIdle(
 				const uint8_t& i_seconds_to_sound_alarm,
 				const uint8_t& i_seconds_to_stop_alarm,
 				const uint8_t& i_seconds_to_stop_recording
@@ -54,12 +55,12 @@ namespace hcv
 
 			Notifier* notifier = new Notifier();
 
-			ASVTimer* timer = new ASVTimer(
+			SRVTimer* timer = new SRVTimer(
 						i_seconds_to_sound_alarm,
 						i_seconds_to_stop_alarm,
 						i_seconds_to_stop_recording
 					);
-			return new ASVSystem(
+			return new SRVSystem(
 					body_detector,
 					timer,
 					IdleState::InstanceAsBase(),
@@ -67,5 +68,5 @@ namespace hcv
 					);
 		}
 
-	} // namespace asv
+	} // namespace srv
 } // namespace hcv

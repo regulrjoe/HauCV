@@ -1,5 +1,5 @@
-#ifndef ASV_TIMER_HPP
-#define ASV_TIMER_HPP
+#ifndef SRV_TIMER_HPP
+#define SRV_TIMER_HPP
 
 #include <cstdint>
 #include <ctime>
@@ -10,20 +10,20 @@ using namespace std::chrono;
 
 namespace hcv
 {
-	namespace asv
+	namespace srv
 	{
-		class ASVTimer
+		class SRVTimer
 		{
 			//// Methods
 			public:
-				ASVTimer(const ASVTimer& i_ASVTimer);
+				SRVTimer(const SRVTimer& i_SRVTimer);
 
-				ASVTimer(const uint8_t& i_seconds_to_sound_alarm = 10, 
+				SRVTimer(const uint8_t& i_seconds_to_sound_alarm = 10, 
 						const uint8_t& i_seconds_to_stop_alarm = 10, 
 						const uint8_t& i_seconds_to_stop_recording = 10);
 
 
-				~ASVTimer();
+				~SRVTimer();
 
 				bool IsTimeToSoundAlarm();
 
@@ -48,7 +48,7 @@ namespace hcv
 				uint8_t m_seconds_to_stop_recording;
 		};
 
-	} // namespace asv
+	} // namespace srv
 } // namespace hcv
 
-#endif // ASV_TIMER_HPP
+#endif // SRV_TIMER_HPP

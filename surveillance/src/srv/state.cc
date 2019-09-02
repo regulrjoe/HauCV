@@ -1,20 +1,20 @@
-#include "asv_state.hpp"
+#include "srv/state.hpp"
 
 namespace hcv
 {
-	namespace asv
+	namespace srv
 	{
 		////////////// AlertState
 		AlertState* AlertState::singleton = 0;
 
-		IASVState* AlertState::Instance()
+		ISRVState* AlertState::Instance()
 		{
 			if (singleton == 0)
 				singleton = new AlertState();
 			return singleton;
 		}
 
-		IASVBaseState* AlertState::InstanceAsBase()
+		ISRVBaseState* AlertState::InstanceAsBase()
 		{
 			if (singleton == 0)
 				singleton = new AlertState();
@@ -24,14 +24,14 @@ namespace hcv
 		////////////// IdleState
 		IdleState* IdleState::singleton = 0;
 
-		IASVState* IdleState::Instance()
+		ISRVState* IdleState::Instance()
 		{
 			if (singleton == 0)
 				singleton = new IdleState();
 			return singleton;
 		}
 
-		IASVBaseState* IdleState::InstanceAsBase()
+		ISRVBaseState* IdleState::InstanceAsBase()
 		{
 			if (singleton == 0)
 				singleton = new IdleState();
@@ -41,7 +41,7 @@ namespace hcv
 		////////////// RecordingState
 		RecordingState* RecordingState::singleton = 0;
 
-		IASVState* RecordingState::Instance()
+		ISRVState* RecordingState::Instance()
 		{
 			if (singleton == 0)
 				singleton = new RecordingState();
@@ -51,7 +51,7 @@ namespace hcv
 		////////////// AlarmingState
 		AlarmingState* AlarmingState::singleton = 0;
 
-		IASVState* AlarmingState::Instance()
+		ISRVState* AlarmingState::Instance()
 		{
 			if (singleton == 0)
 				singleton = new AlarmingState();
@@ -61,12 +61,12 @@ namespace hcv
 		////////////// RecordingAndAlarmingState
 		RecordingAndAlarmingState* RecordingAndAlarmingState::singleton = 0;
 
-		IASVState* RecordingAndAlarmingState::Instance()
+		ISRVState* RecordingAndAlarmingState::Instance()
 		{
 			if (singleton == 0)
 				singleton = new RecordingAndAlarmingState();
 			return singleton;
 		}
 
-	} // namespace asv
+	} // namespace srv
 } // namespace hcv
