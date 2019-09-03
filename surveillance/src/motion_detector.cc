@@ -2,6 +2,8 @@
 
 #include "macros.hpp"
 
+#include <opencv2/imgproc.hpp>
+
 #include <iostream>
 
 using namespace std;
@@ -41,6 +43,31 @@ namespace hcv
 	///////////////////////////////
 	bool MotionDetector::DetectMotion(const cv::Mat& i_frame)
 	{
+		// TODO: Put this in a function at a higher level to modify all input images in system.
+		//cv::Mat inframe;
+
+		//cv::resize(i_frame, inframe, 0, 0.5, 0.5);
+		//cv::cvtColor(inframe, inframe, COLOR_BGR2GRAY);
+		//cv::GaussianBlur(inframe, inframe, cv::Size(21, 21), 0);
+
+		// Compute absolute difference.
+		cv::Mat delta_frame;
+		cv::absdiff(i_frame, m_reference_frame, delta_frame);
+
+		// Apply threshold.
+		cv::Mat thresh_frame;
+		cv::threshold(delta_frame, thresh_frame, 25, 255, THRESH_BINARY);
+
+		// Dilate image to fill holes.
+		cv::Mat dilate_frame;
+		cv::dilate(thresh_frame, dilate_frame, cv::Mat(), cv::Point(-1, -1), 2);
+
+		// Find contours
+		cv::Mat contours_frame;
+		//TODO
+		cv::findContours();
+
+
 		return false;
 	}
 
