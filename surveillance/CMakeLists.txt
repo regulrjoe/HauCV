@@ -7,7 +7,7 @@ set(OPENCV_VERSION 4.0.1)
 #------------------------
 # Create library
 add_library(srvlib
-	STATIC
+	SHARED
 		src/motion_detector.cc
 		src/notifier.cc
 		src/retval.cc
@@ -39,7 +39,7 @@ target_link_libraries(srvlib
 )
 
 # Add compile opetions
-target_compile_options(srvlib PRIVATE -Werror)
+target_compile_options(srvlib PRIVATE -Werror -g)
 
 # Add compile features
 target_compile_features(srvlib PRIVATE cxx_std_17)

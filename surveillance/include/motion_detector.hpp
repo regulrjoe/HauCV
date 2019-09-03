@@ -10,22 +10,22 @@ namespace hcv
 		public:
 			MotionDetector();
 
-			MotionDetector(const cv::Mat&, const uint8_t& = uint8_t(500));
+			MotionDetector(const cv::Mat&, const uint16_t& = 10000);
 
 			MotionDetector(const MotionDetector&);
 
 			~MotionDetector();
 
-			bool DetectMotion(const cv::Mat&);
+			bool DetectMotion(cv::Mat&);
 
 			void SetReferenceFrame(const cv::Mat&);
 
-			void SetMinimumArea(const uint8_t&);
+			void SetMinimumArea(const uint16_t&);
 
 		private:
 			cv::Mat m_reference_frame;
 
-			uint8_t m_minimum_area;
+			uint16_t m_min_area;
 	};
 
 } // namespace hcv
