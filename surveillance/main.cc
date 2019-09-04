@@ -1,29 +1,25 @@
-#include "srv/system.hpp"
-#include "srv/builder.hpp"
-#include "retval.hpp"
+#include "motion_detector.hpp"
+
+#include <opencv2/opencv.hpp>
 
 #include <assert.h>
 #include <iostream>
 
 using namespace std;
+using namespace cv;
+using namespace hcv;
 
 int main()
 {
-	int seconds_for_starting_alarm = 5;
-	int seconds_for_stopping_alarm = 10;
-	int seconds_for_stopping_recording = 15;
+	Mat base_image = imread("/app/tests/img/B_base.jpg", IMREAD_GRAYSCALE);
+	Mat test_body = imread("/app/tests/img/B_body1.jpg", IMREAD_GRAYSCALE);
 
-	assert(seconds_for_stopping_recording > seconds_for_stopping_alarm);
+	assert(base_image.data != 0);
+	assert(test_body.data != 0);
 
-	hcv::srv::SRVSystem* system = hcv::srv::SRVBuilder::BuildIdle(
-			seconds_for_starting_alarm, 
-			seconds_for_stopping_alarm, 
-			seconds_for_stopping_recording);
+	MotionDetector detector(base_image, uint8_t(400));
 
-	assert(system != NULL);
-
-	cout << hcv::RetValMsg::GetMsg(hcv::RetVal::OK) << "\n";
-	cout << hcv::RetValMsg::GetMsg(hcv::RetVal::NOTOK) << endl;
+	cout << detector.DetectMotion(test_body) << endl;
 
 	return 0;
 }

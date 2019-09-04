@@ -39,7 +39,7 @@ target_link_libraries(srvlib
 )
 
 # Add compile opetions
-target_compile_options(srvlib PRIVATE -Werror)
+target_compile_options(srvlib PRIVATE -g -Werror)
 
 # Add compile features
 target_compile_features(srvlib PRIVATE cxx_std_17)

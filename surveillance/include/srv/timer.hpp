@@ -1,9 +1,9 @@
 #ifndef SRV_TIMER_HPP
 #define SRV_TIMER_HPP
 
+#include <chrono>
 #include <cstdint>
 #include <ctime>
-#include <chrono>
 #include <utility>
 
 using namespace std;
