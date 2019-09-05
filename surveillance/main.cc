@@ -1,4 +1,6 @@
 #include "motion_detector.hpp"
+#include "srv/system.hpp"
+#include "srv/builder.hpp"
 
 #include <opencv2/opencv.hpp>
 
@@ -11,15 +13,20 @@ using namespace hcv;
 
 int main()
 {
-	Mat base_image = imread("/app/tests/img/B_base.jpg", IMREAD_GRAYSCALE);
-	Mat test_body = imread("/app/tests/img/B_body1.jpg", IMREAD_GRAYSCALE);
+	int seconds_for_starting_alarm = 5;
+	int seconds_for_stopping_alarm = 10;
+	int seconds_for_stopping_recording = 15;
+	int motion_detector_min_area = 500;
 
-	assert(base_image.data != 0);
-	assert(test_body.data != 0);
+	srv::SRVSystem* system = srv::SRVBuilder::BuildIdle(
+			seconds_for_starting_alarm,
+			seconds_for_stopping_alarm,
+			seconds_for_stopping_recording,
+			motion_detector_min_area);
 
-	MotionDetector detector(base_image, uint8_t(400));
+	assert(system != NULL);
 
-	cout << detector.DetectMotion(test_body) << endl;
+	system->Start(10);
 
 	return 0;
 }
