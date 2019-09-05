@@ -50,10 +50,7 @@ namespace hcv
 	bool MotionDetector::DetectMotion(cv::Mat& i_frame)
 	{
 		// TODO: Put this in a function at a higher level to modify all input images in system.
-		//cv::Mat inframe;
-
 		//cv::resize(i_frame, inframe, 0, 0.5, 0.5);
-		//cv::cvtColor(inframe, inframe, COLOR_BGR2GRAY);
 
 		cv::Mat tmp = i_frame.clone();
 		bool result = false;
@@ -83,7 +80,7 @@ namespace hcv
 				continue;
 
 			contour_rect = cv::boundingRect(*it);
-			cv::rectangle(tmp, contour_rect, (0, 255, 0), 2);
+			cv::rectangle(tmp, contour_rect, 125, 2);
 
 			result = true;
 		}

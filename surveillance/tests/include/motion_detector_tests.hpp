@@ -20,45 +20,54 @@ namespace {
 	// DetectMotion() On Image with a body.
 	TEST(DetectMotionTest, ImageWithBody)
 	{
-		Mat base_image = imread("/app/tests/img/B_base.jpg", IMREAD_GRAYSCALE);
-		Mat test_body = imread("/app/tests/img/B_body1.jpg", IMREAD_GRAYSCALE);
+		Mat base_img = imread("/app/tests/img/B_base.jpg", IMREAD_GRAYSCALE);
+		Mat body_img = imread("/app/tests/img/B_body1.jpg", IMREAD_GRAYSCALE);
 
-		assert(base_image.data != 0);
-		assert(test_body.data != 0);
+		assert(base_img.data != 0);
+		assert(body_img.data != 0);
 
-		MotionDetector detector(base_image, 10000);
+		cv::resize(base_img, base_img, cv::Size(), 0.5, 0.5);
+		cv::resize(body_img, body_img, cv::Size(), 0.5, 0.5);
 
-		EXPECT_TRUE(detector.DetectMotion(test_body));
+		MotionDetector detector(base_img, 500);
+
+		EXPECT_TRUE(detector.DetectMotion(body_img));
 		sleep(1);
 	}
 	
 	// DetectMotion() On Image with a body and noise
 	TEST(DetectMotionTest, ImageWithBodyAndNoise)
 	{
-		Mat base_image = imread("/app/tests/img/B_base.jpg", IMREAD_GRAYSCALE);
-		Mat test_body_noise = imread("/app/tests/img/B_body_noise1.jpg", IMREAD_GRAYSCALE);
+		Mat base_img = imread("/app/tests/img/B_base.jpg", IMREAD_GRAYSCALE);
+		Mat body_noise_img = imread("/app/tests/img/B_body_noise1.jpg", IMREAD_GRAYSCALE);
 
-		assert(base_image.data != 0);
-		assert(test_body_noise.data != 0);
+		assert(base_img.data != 0);
+		assert(body_noise_img.data != 0);
 
-		MotionDetector detector(base_image, 10000);
+		cv::resize(base_img, base_img, cv::Size(), 0.5, 0.5);
+		cv::resize(body_noise_img, body_noise_img, cv::Size(), 0.5, 0.5);
 
-		EXPECT_TRUE(detector.DetectMotion(test_body_noise));
+		MotionDetector detector(base_img, 500);
+
+		EXPECT_TRUE(detector.DetectMotion(body_noise_img));
 		sleep(1);
 	}
 
 	// DetectMotion() On Image with only noise
 	TEST(DetectMotionTest, ImageWithNoise)
 	{
-		Mat base_image = imread("/app/tests/img/B_base.jpg", IMREAD_GRAYSCALE);
-		Mat test_noise = imread("/app/tests/img/B_noise1.jpg", IMREAD_GRAYSCALE);
+		Mat base_img = imread("/app/tests/img/B_base.jpg", IMREAD_GRAYSCALE);
+		Mat noise_img = imread("/app/tests/img/B_noise1.jpg", IMREAD_GRAYSCALE);
 
-		assert(base_image.data != 0);
-		assert(test_noise.data != 0);
+		assert(base_img.data != 0);
+		assert(noise_img.data != 0);
 
-		MotionDetector detector(base_image, 10000);
+		cv::resize(base_img, base_img, cv::Size(), 0.5, 0.5);
+		cv::resize(noise_img, noise_img, cv::Size(), 0.5, 0.5);
 
-		EXPECT_FALSE(detector.DetectMotion(test_noise));
+		MotionDetector detector(base_img, 500);
+
+		EXPECT_FALSE(detector.DetectMotion(noise_img));
 	}
 
 } // namespace
