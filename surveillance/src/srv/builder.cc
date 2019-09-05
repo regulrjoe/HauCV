@@ -20,12 +20,13 @@ namespace hcv
 				const uint8_t& i_seconds_to_sound_alarm,
 				const uint8_t& i_seconds_to_stop_alarm,
 				const uint8_t& i_seconds_to_stop_recording,
-				const uint8_t& i_motion_detector_minimum_area
+				const uint16_t& i_motion_detector_min_area
 				)
 		{
 			PRINT("Building Alert System.");
 
 			MotionDetector* motion_detector = new MotionDetector();
+			motion_detector->SetMinimumArea(i_motion_detector_min_area);
 
 			Notifier* notifier = new Notifier();
 
@@ -48,12 +49,13 @@ namespace hcv
 				const uint8_t& i_seconds_to_sound_alarm,
 				const uint8_t& i_seconds_to_stop_alarm,
 				const uint8_t& i_seconds_to_stop_recording,
-				const uint8_t& i_motion_detector_minimum_area
+				const uint16_t& i_motion_detector_min_area
 				)
 		{
 			PRINT("Building Idle System.");
 
 			MotionDetector* motion_detector = new MotionDetector();
+			motion_detector->SetMinimumArea(i_motion_detector_min_area);
 
 			Notifier* notifier = new Notifier();
 

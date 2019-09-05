@@ -10,7 +10,7 @@ namespace hcv
 		public:
 			MotionDetector();
 
-			MotionDetector(const cv::Mat&, const uint16_t& = 10000);
+			MotionDetector(const cv::Mat&, const uint16_t& = 500);
 
 			MotionDetector(const MotionDetector&);
 
