@@ -3,30 +3,35 @@
 
 #include "srv/system.hpp"
 
+#include "retval.hpp"
+
 namespace hcv
 {
 	namespace srv
 	{
 
+		class SRVSystem;
 		class ISRVBaseState;
 		
 		//////////////////////
 		class ISRVState
 		{
 			public:
-				//virtual bool HandleMotion(SRVSystem&);
-				//virtual bool HandleNoMotion(SRVSystem&);
+				virtual RetVal HandleMotion(SRVSystem*) = 0;
+				virtual RetVal HandleNoMotion(SRVSystem*) = 0;
 
 			protected:
-				//bool changeBaseState(SRVSystem&, const ISRVBaseState*);
-				//bool changeCurrentState(SRVSystem&, const ISRVState*);
+				RetVal changeBaseState(SRVSystem*, ISRVBaseState*);
+				RetVal changeCurrentState(SRVSystem*, ISRVState*);
 		};
 
 		//////////////////////
 		class ISRVBaseState : public ISRVState
 		{
+			public:
+				virtual ~ISRVBaseState() = 0;
 			protected:
-				//bool startRecording(SRVSystem&);
+				RetVal startRecording(SRVSystem*);
 		};
 
 		//////////////////////
@@ -35,10 +40,12 @@ namespace hcv
 			public:
 				static ISRVState* Instance();
 				static ISRVBaseState* InstanceAsBase();
+				RetVal HandleMotion(SRVSystem*);
+				RetVal HandleNoMotion(SRVSystem*);
 
 			private:
 				AlertState() {}
-	//			bool playAlertSound();
+				RetVal playAlertSound();
 			
 			private:
 				static AlertState* singleton;
@@ -51,6 +58,8 @@ namespace hcv
 				IdleState() {}
 				static ISRVState* Instance();
 				static ISRVBaseState* InstanceAsBase();
+				RetVal HandleMotion(SRVSystem*);
+				RetVal HandleNoMotion(SRVSystem*);
 
 			private:
 				static IdleState* singleton;
@@ -61,12 +70,14 @@ namespace hcv
 		{
 			public:
 				static ISRVState* Instance();
+				RetVal HandleMotion(SRVSystem*);
+				RetVal HandleNoMotion(SRVSystem*);
 
 			private:
 				RecordingState() {}
-	//			bool soundAlarm();
-	//			bool stopRecording();
-	//			bool storeVideo();
+				RetVal soundAlarm();
+				RetVal stopRecording();
+				RetVal storeVideo();
 
 			private:
 				static RecordingState* singleton;
@@ -77,11 +88,13 @@ namespace hcv
 		{
 			public:
 				static ISRVState* Instance();
+				RetVal HandleMotion(SRVSystem*);
+				RetVal HandleNoMotion(SRVSystem*);
 
 			private:
 				AlarmingState() {}
-	//			bool startRecording(SRVSystem&);
-	//			bool stopAlarm(SRVSystem&);
+				RetVal startRecording();
+				RetVal stopAlarm();
 
 			private:
 				static AlarmingState* singleton;
@@ -92,10 +105,12 @@ namespace hcv
 		{
 			public:
 				static ISRVState* Instance();
+				RetVal HandleMotion(SRVSystem*);
+				RetVal HandleNoMotion(SRVSystem*);
 
 			private:
 				RecordingAndAlarmingState() {}
-	//			bool stopAlarm(SRVSystem&);
+				RetVal stopAlarm();
 
 			private:
 				static RecordingAndAlarmingState* singleton;
