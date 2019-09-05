@@ -28,8 +28,12 @@ namespace hcv
 	{
 		PRINT("MotionDetector constructed with parameters.");
 		
+		// Turn to grayscale.
+		cv::cvtColor(i_reference_frame, m_reference_frame, cv::COLOR_BGR2GRAY);
+		// Size down 50%.
+		cv::resize(m_reference_frame, m_reference_frame, cv::Size(), 0.5, 0.5);
 		// Apply Gaussian Blur.
-		cv::GaussianBlur(i_reference_frame, m_reference_frame, cv::Size(21, 21), 0);
+		cv::GaussianBlur(m_reference_frame, m_reference_frame, cv::Size(21, 21), 0);
 	}
 
 	///////////////////////////////
@@ -55,6 +59,10 @@ namespace hcv
 		cv::Mat tmp = i_frame.clone();
 		bool result = false;
 
+		// Turn to grayscale.
+		cv::cvtColor(tmp, tmp, cv::COLOR_BGR2GRAY);
+		// Size down 50%.
+		cv::resize(tmp, tmp, cv::Size(), 0.5, 0.5);
 		// Apply Gaussian Blur.
 		cv::GaussianBlur(tmp, tmp, cv::Size(21, 21), 0);
 		// Compute absolute difference.
@@ -97,8 +105,12 @@ namespace hcv
 	///////////////////////////////
 	void MotionDetector::SetReferenceFrame(const cv::Mat& i_reference_frame)
 	{
+		// Turn to grayscale.
+		cv::cvtColor(i_reference_frame, m_reference_frame, cv::COLOR_BGR2GRAY);
+		// Size down 50%.
+		cv::resize(m_reference_frame, m_reference_frame, cv::Size(), 0.5, 0.5);
 		// Apply Gaussian Blur.
-		cv::GaussianBlur(i_reference_frame, m_reference_frame, cv::Size(21, 21), 0);
+		cv::GaussianBlur(m_reference_frame, m_reference_frame, cv::Size(21, 21), 0);
 
 		PRINT("Reference frame updated.");
 	}
