@@ -30,20 +30,20 @@ namespace hcv
 
 				~SRVSystem();
 
-				RetVal Start(const int&);
+				RetVal Start(const uint16_t&);
 
-	//			RetVal Stop();
+				RetVal Stop();
 
 			private:
 				friend class ISRVState;
 
-	//			RetVal changeBaseState(const ISRVBaseState*);
-	//
-	//			RetVal changeCurrentState(const ISRVState*);
-	//
-	//			RetVal handleFrameWithMotion();
-	//
-	//			RetVal handleFrameWithNoMotion();
+				RetVal changeBaseState(ISRVBaseState*);
+	
+				RetVal changeCurrentState(ISRVState*);
+	
+				RetVal handleFrameWithMotion();
+	
+				RetVal handleFrameWithNoMotion();
 
 			//// Data
 			private:
