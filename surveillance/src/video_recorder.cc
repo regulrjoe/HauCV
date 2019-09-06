@@ -1,6 +1,11 @@
 #include "video_recorder.hpp"
 
 #include "macros.hpp"
+#include "retval.hpp"
+
+#include <iostream>
+
+using namespace std;
 
 namespace hcv
 {
@@ -18,27 +23,43 @@ namespace hcv
 	}
 
 	////////////////////////////
+	void VideoRecorder::Do()
+	{
+		// TODO.
+	}
+
+	////////////////////////////
 	bool VideoRecorder::IsRecording()
 	{
 		return m_recording;
 	}
 
 	////////////////////////////
-	RetVal VideoRecorder::Start()
+	void VideoRecorder::Start()
 	{
-		return RetVal::NOTOK;
+		// TODO.
+		if (!m_recording)
+		{
+			m_recording = true;
+		}
+		else
+		{
+			cerr << "VideoRecorder is already recording." << endl;
+		}
 	}
 
 	////////////////////////////
-	RetVal VideoRecorder::Stop()
+	void VideoRecorder::Stop()
 	{
-		return RetVal::NOTOK;
-	}
-
-	////////////////////////////
-	RetVal VideoRecorder::Store()
-	{
-		return RetVal::NOTOK;
+		// TODO.
+		if (m_recording)
+		{
+			m_recording = false;
+		}
+		else
+		{
+			cerr << "VideoRecorder is already stopped" << endl;
+		}
 	}
 
 } // namespace hcv

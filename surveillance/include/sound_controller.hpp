@@ -1,8 +1,6 @@
 #ifndef SOUND_CONTROLLER_HPP
 #define SOUND_CONTROLLER_HPP
 
-#include "retval.hpp"
-
 namespace hcv
 {
 	class SoundController
@@ -16,11 +14,11 @@ namespace hcv
 
 			bool IsAlarmOn();
 
-			RetVal SoundAlarm();
+			void SoundAlarm();
 
-			RetVal SoundAlert();
+			void SoundAlert();
 
-			RetVal StopAlarm();
+			void StopAlarm();
 
 		private:
 			bool m_alarm_is_on;

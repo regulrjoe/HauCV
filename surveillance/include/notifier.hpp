@@ -1,8 +1,6 @@
 #ifndef NOTIFIER_HPP
 #define NOTIFIER_HPP
 
-#include "retval.hpp"
-
 #include <string>
 #include <vector>
 #include <ctime>
@@ -18,13 +16,13 @@ namespace hcv
 
 			Notifier(const vector<string>&);
 
-			RetVal AddDestination(const string&);
+			void AddDestination(const string&);
 
-			RetVal NotifyAlarm(const time_t&);
+			void NotifyAlarm(const time_t&);
 
-			RetVal NotifyAlert(const time_t&);
+			void NotifyAlert(const time_t&);
 
-			RetVal GetDestination(const uint8_t&, string*);
+			void GetDestination(const uint8_t&, string*);
 
 		private:
 			vector<string> m_destinations;

@@ -1,6 +1,7 @@
 #include "notifier.hpp"
 
 #include "macros.hpp"
+#include "retval.hpp"
 
 #include <exception>
 
@@ -21,60 +22,47 @@ namespace hcv
 	}
 
 	/////////////////////
-	RetVal Notifier::AddDestination(const string& i_destination)
+	void Notifier::AddDestination(const string& i_destination)
 	{
 		try
 		{
 			if (i_destination.empty())
-				throw RetVal::NOTOK;
+				throw RetVal::NotOK;
 
 			m_destinations.push_back(i_destination);
 
 			if (m_destinations.back() != i_destination)
-				throw RetVal::NOTOK;
+				throw RetVal::NotOK;
 		}
-		catch (RetVal r)
+		catch (const RetVal& rv)
 		{
 			PRINT("Exception in Notifier::AddDestination: " << r);
-			return r;
+			throw rv;
 		}
-
-		return RetVal::OK;
 	}
 
 	/////////////////////
-	RetVal Notifier::NotifyAlarm(const time_t& i_time)
+	void Notifier::NotifyAlarm(const time_t& i_time)
 	{
-		return RetVal::NOTOK;
+		// TODO.
 	}
 
 	/////////////////////
-	RetVal Notifier::NotifyAlert(const time_t& i_time)
+	void Notifier::NotifyAlert(const time_t& i_time)
 	{
-		return RetVal::NOTOK;
+		// TODO.
 	}
 
-	RetVal Notifier::GetDestination(const uint8_t& i_index, string* o_destination)
+	void Notifier::GetDestination(const uint8_t& i_index, string* o_destination)
 	{
 		try
 		{
-			try
-			{
-				*o_destination = m_destinations.at(i_index);
-			}
-			catch (exception e)
-			{
-				PRINT(e);
-				throw RetVal::NOTOK;
-			}
+			*o_destination = m_destinations.at(i_index);
 		}
-		catch (RetVal r)
+		catch (const exception& e)
 		{
-			PRINT("Exception in Notifier::GetDestination: " << r);
-			return r;
+			throw e;
 		}
-		
-		return RetVal::OK;
 	}
 
 

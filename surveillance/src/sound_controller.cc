@@ -1,6 +1,7 @@
 #include "sound_controller.hpp"
 
 #include "macros.hpp"
+#include "retval.hpp"
 
 namespace hcv
 {
@@ -31,23 +32,23 @@ namespace hcv
 	}
 
 	////////////////////
-	RetVal SoundController::SoundAlarm()
+	void SoundController::SoundAlarm()
 	{
+		// TODO.
 		m_alarm_is_on = true;
-		return RetVal::NOTOK;
 	}
 
 	////////////////////
-	RetVal SoundController::SoundAlert()
+	void SoundController::SoundAlert()
 	{
-		return RetVal::NOTOK;
+		// TODO.
 	}
 
 	////////////////////
-	RetVal SoundController::StopAlarm()
+	void SoundController::StopAlarm()
 	{
+		//TODO.
 		m_alarm_is_on = false;
-		return RetVal::NOTOK;
 	}
 
 } // namespace hcv

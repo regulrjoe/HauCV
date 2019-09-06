@@ -1,8 +1,6 @@
 #ifndef VIDEO_RECORDER_HPP
 #define VIDEO_RECORDER_HPP
 
-#include "retval.hpp"
-
 namespace hcv
 {
 	class VideoRecorder
@@ -12,13 +10,13 @@ namespace hcv
 
 			~VideoRecorder();
 
+			void Do();
+
 			bool IsRecording();
 
-			RetVal Start();
+			void Start();
 
-			RetVal Stop();
-
-			RetVal Store();
+			void Stop();
 
 		private:
 			bool m_recording;
