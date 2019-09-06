@@ -1,6 +1,7 @@
 #include "srv/system.hpp"
 
 #include "macros.hpp"
+#include "retval.hpp"
 
 #include <opencv2/opencv.hpp>
 
@@ -41,130 +42,173 @@ namespace hcv
 		}
 
 		///////////////////////////
-		RetVal SRVSystem::Start(const uint16_t& i_runtime)
+		void SRVSystem::Start(const uint16_t& i_runtime)
 		{
+			// Setup variables.
+			bool motion;
+			cv::Mat frame;
+			duration<double> elapsed_seconds;
+			time_point<system_clock> start, current;
+
 			// Open Camera.
 			cv::VideoCapture cap(0);
-			if (!cap.isOpened())
-				return RetVal::NOTOK;
 
-			// Setup variables.
-			cv::Mat frame;
-			bool motion;
-			time_point<system_clock> start, current;
-			duration<double> elapsed_seconds;
-
-			// Setup reference frame for motion detection.
-			cap >> frame;
-			m_p_motion_detector->SetReferenceFrame(frame);
-
-			// If runtime is set, setup the timers for it.
-			if (i_runtime > 0)
-				start = system_clock::now();
-
-			while (cap.isOpened())
+			try
 			{
-				// Time to stop?
+				if (!cap.isOpened())
+					throw RetVal::NotOK;
+
+				// Setup reference frame for motion detection.
+				cap >> frame;
+				m_p_motion_detector->SetReferenceFrame(frame);
+
+				// If runtime is set, setup the timers for it.
 				if (i_runtime > 0)
+					start = system_clock::now();
+
+				while (cap.isOpened())
 				{
-					current = system_clock::now();
-					elapsed_seconds = current - start;
-					if (elapsed_seconds.count() >= i_runtime)
-						break;
+					// Time to stop?
+					if (i_runtime > 0)
+					{
+						current = system_clock::now();
+						elapsed_seconds = current - start;
+						if (elapsed_seconds.count() >= i_runtime)
+							break;
+					}
+
+					// No? Then get the frame man!
+					cap >> frame;
+					
+					// Is someone moving in the frame?
+					if (m_p_motion_detector->DetectMotion(frame))
+						handleFrameWithMotion();
+					else
+						handleFrameWithNoMotion();
 				}
 
-				// No? Then get the frame man!
-				cap >> frame;
-				
-				// Is someone moving in the frame?
-				motion = m_p_motion_detector->DetectMotion(frame);
-				if (motion)
-				{
-					// Yes.
-					if (handleFrameWithMotion() != RetVal::OK)
-					{
-						cap.release();
-						return RetVal::NOTOK;
-					}
-				}
-				else
-				{
-					// No.
-					if (handleFrameWithNoMotion() != RetVal::OK)
-					{
-						cap.release();
-						return RetVal::NOTOK;
-					}
-				}
+				cap.release();
+			}
+			catch (const RetVal& rv)
+			{
+				cerr << "SRVSystem::Start(): An ERROR occurred: " << RVMsg(rv) << "." << endl;
+				cap.release();
+			}
+			catch (const exception& e)
+			{
+				cerr << "SRVSystem::Start(): An EXCEPTION occurred with message = " << e.what() << "." << endl;
+				cap.release();
+			}
+		}
+
+		///////////////////////////
+		void SRVSystem::handleFrameWithMotion()
+		{
+			try
+			{
+				m_p_current_system_state->HandleMotion(this);
+			}
+			catch (const RetVal& rv)
+			{
+				throw(rv);
+			}
+			catch (const exception& e)
+			{
+				throw(e);
+			}
+		}
+
+		///////////////////////////
+		void SRVSystem::handleFrameWithNoMotion()
+		{
+			try
+			{
+				m_p_current_system_state->HandleNoMotion(this);
+			}
+			catch (const RetVal& rv)
+			{
+				throw(rv);
+			}
+			catch (const exception& e)
+			{
+				throw(e);
 			}
 
-			cap.release();
-
-			return RetVal::OK;
 		}
 
 		///////////////////////////
-		RetVal SRVSystem::Stop()
+		void SRVSystem::Stop()
 		{
-			return RetVal::NOTOK;
+			// TODO.
 		}
 
 		///////////////////////////
-		RetVal SRVSystem::changeCurrentState(ISRVState* i_p_state)
+		SRVTimer* SRVSystem::GetTimer()
+		{
+			return m_p_timer;
+		}
+
+		ISRVBaseState* SRVSystem::GetBaseState()
+		{
+			return m_p_base_system_state;
+		}
+
+		///////////////////////////
+		void SRVSystem::changeCurrentState(ISRVState* i_p_state)
 		{
 			try
 			{
 				m_p_current_system_state = i_p_state;
-				return RetVal::OK;
 			}
 			catch (const exception& e)
 			{
-				cout << "Exception caught at SRVSystem::changeCurrentState(): " << e.what() << endl;
-				return RetVal::NOTOK;
+				cerr << "Exception caught at SRVSystem::changeCurrentState(): " << e.what() << endl;
+				throw(e);
 			}
 		}
 
 		///////////////////////////
-		RetVal SRVSystem::changeBaseState(ISRVBaseState* i_p_state)
+		void SRVSystem::changeBaseState(ISRVBaseState* i_p_state)
 		{
 			try
 			{
 				m_p_base_system_state = i_p_state;
-				return RetVal::OK;
 			}
 			catch (const exception& e)
 			{
-				cout << "Exception caught at SRVSystem::changeBaseState(): " << e.what() << endl;
-				return RetVal::NOTOK;
+				cerr << "Exception caught at SRVSystem::changeBaseState(): " << e.what() << endl;
+				throw(e);
 			}
 		}
 
 		///////////////////////////
-		RetVal SRVSystem::handleFrameWithMotion()
+		void SRVSystem::playAlertSound()
 		{
-			if (m_p_current_system_state->HandleMotion(this) != RetVal::OK)
-			{
-				cout << "An ERROR occurred at SRVSystem::handleFrameWithMotion(). Shutting down." << endl;
-				return RetVal::NOTOK;
-			}
-			else
-			{
-				return RetVal::OK;
-			}
+			// TODO.
 		}
 
 		///////////////////////////
-		RetVal SRVSystem::handleFrameWithNoMotion()
+		void SRVSystem::soundAlarm()
 		{
-			if (m_p_current_system_state->HandleNoMotion(this) != RetVal::OK)
-			{
-				cout << "An ERROR occurred at SRVSystem::handleFrameWithNoMotion(). Shutting down." << endl;
-				return RetVal::NOTOK;
-			}
-			else
-			{
-				return RetVal::OK;
-			}
+			// TODO.
+		}
+
+		///////////////////////////
+		void SRVSystem::startRecording()
+		{
+			// TODO.
+		}
+
+		///////////////////////////
+		void SRVSystem::stopAlarm()
+		{
+			// TODO.
+		}
+
+		///////////////////////////
+		void SRVSystem::stopRecording()
+		{
+			// TODO.
 		}
 
 	} // namespace srv

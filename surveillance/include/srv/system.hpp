@@ -1,12 +1,11 @@
 #ifndef SRV_SYSTEM_HPP
 #define SRV_SYSTEM_HPP
 
-#include "srv/state.hpp"
+#include "srv/states.hpp"
 #include "srv/timer.hpp"
 
 #include "motion_detector.hpp"
 #include "notifier.hpp"
-#include "retval.hpp"
 
 #include <cstdint>
 #include <ctime>
@@ -30,20 +29,37 @@ namespace hcv
 
 				~SRVSystem();
 
-				RetVal Start(const uint16_t&);
+				void Start(const uint16_t&);
 
-				RetVal Stop();
+				void Stop();
+
+				SRVTimer* GetTimer();
+
+				ISRVBaseState* GetBaseState();
 
 			private:
 				friend class ISRVState;
 
-				RetVal changeBaseState(ISRVBaseState*);
+				//// State-specific behaviour
+				void handleFrameWithMotion();
 	
-				RetVal changeCurrentState(ISRVState*);
+				void handleFrameWithNoMotion();
+
+				//// State-independent behaviour
+				void changeBaseState(ISRVBaseState*);
 	
-				RetVal handleFrameWithMotion();
-	
-				RetVal handleFrameWithNoMotion();
+				void changeCurrentState(ISRVState*);
+
+				void playAlertSound();
+
+				void soundAlarm();
+
+				void startRecording();
+
+				void stopAlarm();
+
+				void stopRecording();
+
 
 			//// Data
 			private:
@@ -56,6 +72,8 @@ namespace hcv
 				ISRVState* m_p_current_system_state;
 
 				Notifier* m_p_notifier;
+
+				bool m_is_started;
 
 		};
 

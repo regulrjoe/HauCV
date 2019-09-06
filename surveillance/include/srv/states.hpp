@@ -1,9 +1,7 @@
-#ifndef SRV_STATE_HPP
-#define SRV_STATE_HPP
+#ifndef SRV_STATES_HPP
+#define SRV_STATES_HPP
 
 #include "srv/system.hpp"
-
-#include "retval.hpp"
 
 namespace hcv
 {
@@ -13,104 +11,101 @@ namespace hcv
 		class SRVSystem;
 		class ISRVBaseState;
 		
-		//////////////////////
+		////////////////////// ISRVState
 		class ISRVState
 		{
 			public:
-				virtual RetVal HandleMotion(SRVSystem*) = 0;
-				virtual RetVal HandleNoMotion(SRVSystem*) = 0;
+				virtual ~ISRVState() = 0;
+				virtual void HandleMotion(SRVSystem*);
+				virtual void HandleNoMotion(SRVSystem*);
 
 			protected:
-				RetVal changeBaseState(SRVSystem*, ISRVBaseState*);
-				RetVal changeCurrentState(SRVSystem*, ISRVState*);
+				void changeBaseState(SRVSystem*, ISRVBaseState*);
+				void changeCurrentState(SRVSystem*, ISRVState*);
+				void playAlertSound(SRVSystem*);
+				void soundAlarm(SRVSystem*);
+				void startRecording(SRVSystem*);
+				void stopAlarm(SRVSystem*);
+				void stopRecording(SRVSystem*);
 		};
 
-		//////////////////////
+		////////////////////// ISRVBaseState
 		class ISRVBaseState : public ISRVState
 		{
 			public:
 				virtual ~ISRVBaseState() = 0;
-			protected:
-				RetVal startRecording(SRVSystem*);
 		};
 
-		//////////////////////
+		////////////////////// AlertState
 		class AlertState : public ISRVBaseState
 		{
 			public:
 				static ISRVState* Instance();
 				static ISRVBaseState* InstanceAsBase();
-				RetVal HandleMotion(SRVSystem*);
-				RetVal HandleNoMotion(SRVSystem*);
+				void HandleMotion(SRVSystem*);
+				//void HandleNoMotion(SRVSystem*);
 
 			private:
 				AlertState() {}
-				RetVal playAlertSound();
 			
 			private:
 				static AlertState* singleton;
 		};
 
-		//////////////////////
+		////////////////////// IdleState
 		class IdleState : public ISRVBaseState
 		{
 			public:
 				IdleState() {}
 				static ISRVState* Instance();
 				static ISRVBaseState* InstanceAsBase();
-				RetVal HandleMotion(SRVSystem*);
-				RetVal HandleNoMotion(SRVSystem*);
+				void HandleMotion(SRVSystem*);
+				//void HandleNoMotion(SRVSystem*);
 
 			private:
 				static IdleState* singleton;
 		};
 
-		//////////////////////
+		////////////////////// RecordingState
 		class RecordingState : public ISRVState
 		{
 			public:
 				static ISRVState* Instance();
-				RetVal HandleMotion(SRVSystem*);
-				RetVal HandleNoMotion(SRVSystem*);
+				void HandleMotion(SRVSystem*);
+				void HandleNoMotion(SRVSystem*);
 
 			private:
 				RecordingState() {}
-				RetVal soundAlarm();
-				RetVal stopRecording();
-				RetVal storeVideo();
 
 			private:
 				static RecordingState* singleton;
 		};
 
-		//////////////////////
+		////////////////////// AlarmingState
 		class AlarmingState : public ISRVState
 		{
 			public:
 				static ISRVState* Instance();
-				RetVal HandleMotion(SRVSystem*);
-				RetVal HandleNoMotion(SRVSystem*);
+				void HandleMotion(SRVSystem*);
+				void HandleNoMotion(SRVSystem*);
 
 			private:
 				AlarmingState() {}
-				RetVal startRecording();
-				RetVal stopAlarm();
 
 			private:
 				static AlarmingState* singleton;
 		};
 
-		//////////////////////
+		////////////////////// RecordingAndAlarmingState
 		class RecordingAndAlarmingState : public ISRVState
 		{
 			public:
 				static ISRVState* Instance();
-				RetVal HandleMotion(SRVSystem*);
-				RetVal HandleNoMotion(SRVSystem*);
+				void HandleMotion(SRVSystem*);
+				void HandleNoMotion(SRVSystem*);
 
 			private:
 				RecordingAndAlarmingState() {}
-				RetVal stopAlarm();
 
 			private:
 				static RecordingAndAlarmingState* singleton;
@@ -119,4 +114,4 @@ namespace hcv
 	} // namespace srv
 } // namespace hcv
 
-#endif // SRV_STATE_HPP
+#endif // SRV_STATES_HPP

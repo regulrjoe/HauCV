@@ -10,7 +10,7 @@ namespace hcv
 	enum class RetVal
 	{
 		OK,
-		NOTOK
+		NotOK
 	};
 
 	class RetValMsg

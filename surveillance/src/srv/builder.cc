@@ -1,6 +1,6 @@
 #include "srv/builder.hpp"
 
-#include "srv/state.hpp"
+#include "srv/states.hpp"
 #include "srv/timer.hpp"
 
 #include "motion_detector.hpp"

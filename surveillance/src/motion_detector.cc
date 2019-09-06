@@ -1,6 +1,7 @@
 #include "motion_detector.hpp"
 
 #include "macros.hpp"
+#include "retval.hpp"
 
 #include <opencv2/imgproc.hpp>
 
