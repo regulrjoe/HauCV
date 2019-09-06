@@ -7,4 +7,6 @@
 #define PRINT(to_print) while(0) // Avoid empty statements.
 #endif
 
+#define RVMsg(rv) RetValMsg::GetMsg(rv)
+
 #endif // MACROS_HPP
