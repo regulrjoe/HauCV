@@ -5,30 +5,30 @@ import zmq
 context = zmq.Context()
 
 if len(sys.argv) < 3:
-    print("Usage:\n\tpython3 testclient <module> <cmd>\nExample:\n\tpython3 testclient alarm on")
+    print("Usage:\n\tpython3 testclient <module> <cmd>\nExample:\n\tpython3 testclient alarm start")
 else:
     if (sys.argv[1] == 'alarm'):
-        if (sys.argv[2] == 'on'):
-            alarm_on_socket = context.socket(zmq.REQ)
-            alarm_on_socket.connect("tcp://localhost:1111")
-            alarm_on_socket.send(b"smsalert.mp3")
-            message = alarm_on_socket.recv()
+        if (sys.argv[2] == 'start'):
+            start_alarm_socket = context.socket(zmq.REQ)
+            start_alarm_socket.connect("tcp://localhost:1111")
+            start_alarm_socket.send(b"smsalert.mp3")
+            message = start_alarm_socket.recv()
             assert(message == b'0')
 
-        elif (sys.argv[2] == 'off'):
-            alarm_off_socket = context.socket(zmq.REQ)
-            alarm_off_socket.connect("tcp://localhost:1112")
-            alarm_off_socket.send(b"0")
+        elif (sys.argv[2] == 'stop'):
+            stop_alarm_socket = context.socket(zmq.REQ)
+            stop_alarm_socket.connect("tcp://localhost:1112")
+            stop_alarm_socket.send(b"0")
             message = ''
-            message = alarm_off_socket.recv()
+            message = stop_alarm_socket.recv()
             assert(message == b'0')
 
         elif (sys.argv[2] == 'shutdown'):
-            alarm_shutdown_socket = context.socket(zmq.REQ)
-            alarm_shutdown_socket.connect("tcp://localhost:1110")
-            alarm_shutdown_socket.send(b"0")
+            shutdown_alarm_socket = context.socket(zmq.REQ)
+            shutdown_alarm_socket.connect("tcp://localhost:1110")
+            shutdown_alarm_socket.send(b"0")
             message = ''
-            message = alarm_shutdown_socket.recv()
+            message = shutdown_alarm_socket.recv()
             assert(message == b'0')
 
         else:
@@ -36,17 +36,17 @@ else:
 
     elif (sys.argv[1] == 'alert'):
         if (sys.argv[2] == 'play'):
-            alert_play_socket = context.socket(zmq.REQ)
-            alert_play_socket.connect("tcp://localhost:1121")
-            alert_play_socket.send(b"smsalert.mp3")
-            message = alert_play_socket.recv()
+            play_alert_socket = context.socket(zmq.REQ)
+            play_alert_socket.connect("tcp://localhost:1121")
+            play_alert_socket.send(b"smsalert.mp3")
+            message = play_alert_socket.recv()
             assert(message == b'0')
 
         elif (sys.argv[2] == 'shutdown'):
-            alert_shutdown_socket = context.socket(zmq.REQ)
-            alert_shutdown_socket.connect("tcp://localhost:1120")
-            alert_shutdown_socket.send(b'0')
-            message = alert_shutdown_socket.recv()
+            shutdown_alert_socket = context.socket(zmq.REQ)
+            shutdown_alert_socket.connect("tcp://localhost:1120")
+            shutdown_alert_socket.send(b'0')
+            message = shutdown_alert_socket.recv()
             assert(message == b'0')
 
         else:
