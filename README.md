@@ -1,2 +1,2 @@
 # HausCV
-A collection of local CV systems for your Haus.
+A collection of local CV systems my house.
