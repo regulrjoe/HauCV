@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.13)
 project(Surveillance CXX)
 
 set(OPENCV_VERSION 4.0.1)
+set(CPPZMQ_VERSION 4.3)
 
 #------------------------
 # Create library
@@ -30,6 +31,7 @@ add_library(srvlib
 
 # Find dependencies
 find_package(OpenCV ${OPENCV_VERSION} REQUIRED)
+find_package(cppzmq ${CPPZMQ_VERSION} REQUIRED)
 
 # Add headers
 target_include_directories(srvlib
@@ -43,6 +45,7 @@ target_include_directories(srvlib
 target_link_libraries(srvlib
 	PRIVATE
 		${OpenCV_LIBS}
+		cppzmq
 )
 
 # Add compile opetions

@@ -8,8 +8,7 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [
       'build', '.',
-      '-t', 'gcr.io/hauscv/devenv',
-      '-f', 'Dockerfile-Dev'
+      '-t', 'gcr.io/hauscv/devenv'
       ]
   timeout: 2400s
 images: 
