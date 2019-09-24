@@ -4,8 +4,11 @@
 #include "srv/states.hpp"
 #include "srv/timer.hpp"
 
+#include "soundcontroller/sound_controller.hpp"
+
 #include "motion_detector.hpp"
-#include "notifier.hpp"
+
+#include <zmq.hpp>
 
 #include <cstdint>
 #include <ctime>
@@ -25,7 +28,7 @@ namespace hcv
 		{
 			//// Methods
 			public:
-				SRVSystem(MotionDetector* const, SRVTimer* const, ISRVBaseState* const, Notifier* const);
+				SRVSystem(MotionDetector* const, SRVTimer* const, ISRVBaseState* const, SoundController* const);
 
 				~SRVSystem();
 
@@ -52,7 +55,7 @@ namespace hcv
 
 				void playAlertSound();
 
-				void soundAlarm();
+				void startAlarm();
 
 				void startRecording();
 
@@ -65,16 +68,17 @@ namespace hcv
 			private:
 				MotionDetector* m_p_motion_detector;
 
+				SoundController* m_sound_controller_ptr;
+
 				SRVTimer* m_p_timer;
 
 				ISRVBaseState* m_p_base_system_state;
 
 				ISRVState* m_p_current_system_state;
 
-				Notifier* m_p_notifier;
+				bool m_running_flag;
 
-				bool m_is_started;
-
+				zmq::context_t* m_context_ptr;
 		};
 
 	} // namespace srv

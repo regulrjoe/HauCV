@@ -10,10 +10,11 @@ set(CPPZMQ_VERSION 4.3)
 add_library(srvlib
 	SHARED
 		src/motion_detector.cc
-		src/notifier.cc
-		src/sound_controller.cc
-		src/video_recorder.cc
 		src/rcode.cc
+
+		src/soundcontroller/alarm.cc
+		src/soundcontroller/alarm_commands.cc
+		src/soundcontroller/sound_controller.cc
 
 		src/srv/builder.cc
 		src/srv/system.cc
@@ -55,7 +56,7 @@ target_compile_options(srvlib PRIVATE -Werror -g)
 target_compile_features(srvlib PRIVATE cxx_std_17)
 
 #Add compile definitions
-target_compile_definitions(srvlib PUBLIC NDEBUG) #Comment to print. Uncomment to not print.
+#target_compile_definitions(srvlib PUBLIC NDEBUG) #Comment to print. Uncomment to not print.
 
 #------------------------
 # Create executable
@@ -70,6 +71,7 @@ target_include_directories(surveillance
 # Link library
 target_link_libraries(surveillance 
 	srvlib
+	cppzmq
 )
 
 # Add compile options

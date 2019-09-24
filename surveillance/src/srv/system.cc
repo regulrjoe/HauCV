@@ -19,24 +19,26 @@ namespace hcv
 				MotionDetector* const i_p_motion_detector,
 				SRVTimer* const i_p_timer,
 				ISRVBaseState* const i_p_base_state,
-				Notifier* const i_p_notifier) :
+				SoundController* const i_sound_controller_ptr) :
 			m_p_motion_detector(i_p_motion_detector),
 			m_p_base_system_state(i_p_base_state),
 			m_p_timer(i_p_timer),
 			m_p_current_system_state(i_p_base_state),
-			m_p_notifier(i_p_notifier)
+			m_sound_controller_ptr(i_sound_controller_ptr)
 		{
 			PRINT("SRVSystem constructed.");
+			m_context_ptr = new zmq::context_t(1);
+			m_running_flag = false;
 		}
 
 		///////////////////////////
 		SRVSystem::~SRVSystem()
 		{
+			delete m_sound_controller_ptr;
 			delete m_p_motion_detector;
 			delete m_p_base_system_state;
 			delete m_p_current_system_state;
 			delete m_p_timer;
-			delete m_p_notifier;
 
 			PRINT("SRVSystem destroyed.");
 		}
@@ -44,6 +46,8 @@ namespace hcv
 		///////////////////////////
 		void SRVSystem::Start(const uint16_t& i_runtime)
 		{
+			m_sound_controller_ptr->Init(m_context_ptr);
+
 			// Setup variables.
 			bool motion;
 			cv::Mat frame;
@@ -88,6 +92,7 @@ namespace hcv
 				}
 
 				cap.release();
+				m_sound_controller_ptr->ShutdownAlarm();
 			}
 			catch (const RCode& rc)
 			{
@@ -202,9 +207,9 @@ namespace hcv
 		}
 
 		///////////////////////////
-		void SRVSystem::soundAlarm()
+		void SRVSystem::startAlarm()
 		{
-			// TODO.
+			m_sound_controller_ptr->StartAlarm();
 		}
 
 		///////////////////////////
@@ -216,7 +221,7 @@ namespace hcv
 		///////////////////////////
 		void SRVSystem::stopAlarm()
 		{
-			// TODO.
+			m_sound_controller_ptr->StopAlarm();
 		}
 
 		///////////////////////////
