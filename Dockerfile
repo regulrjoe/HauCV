@@ -17,6 +17,7 @@ RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 	build-essential \
 	gdb \
+	mpg123 \
 	libssl-dev \
 	libffi-dev \
 	python-dev \
@@ -24,5 +25,9 @@ RUN apt-get update \
 	vim \
 	&& apt-get clean -y \
 	&& rm -rf /var/lib/apt/lists/*
+
+# Install dbg-macro
+RUN git clone https://github.com/sharkdp/dbg-macro /dbg-macro \
+	&& ln -s $(readlink -f dbg-macro/dbg.h) /usr/include/dbg.h
 
 WORKDIR /
