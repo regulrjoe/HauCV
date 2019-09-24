@@ -19,15 +19,10 @@ RUN apt-get update \
 	gdb \
 	libssl-dev \
 	libffi-dev \
-	mpg123 \
 	python-dev \
 	python3-pip \
 	vim \
 	&& apt-get clean -y \
 	&& rm -rf /var/lib/apt/lists/*
-
-# Install dbg-macro
-RUN git clone https://github.com/sharkdp/dbg-macro /dbg-macro \
-	&& ln -s $(readlink -f dbg-macro/dbg.h) /usr/include/dbg.h
 
 WORKDIR /
