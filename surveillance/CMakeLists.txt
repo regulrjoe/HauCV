@@ -11,9 +11,9 @@ add_library(srvlib
 	SHARED
 		src/motion_detector.cc
 		src/notifier.cc
-		src/retval.cc
 		src/sound_controller.cc
 		src/video_recorder.cc
+		src/rcode.cc
 
 		src/srv/builder.cc
 		src/srv/system.cc

@@ -1,7 +1,7 @@
 #include "srv/states.hpp"
 
 #include "macros.hpp"
-#include "retval.hpp"
+#include "rcode.hpp"
 
 namespace hcv
 {
@@ -26,15 +26,15 @@ namespace hcv
 			{
 				i_system->GetTimer()->UpdateLastMotionTimestamp();
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				cerr << "RecordingAndAlarmingState::HandleMotion(): An ERROR occurred: " << RVMsg(rv) << "." << endl;
-				throw(rv);
+				PRINTERR(rc);
+				throw rc;
 			}
 			catch (const exception& e)
 			{
-				cerr << "RecordingAndAlarmingState::HandleMotion(): An EXCEPTION occurred with message = " << e.what() << "." << endl;
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 
 		}
@@ -61,15 +61,15 @@ namespace hcv
 					changeCurrentState(i_system, RecordingState::Instance());
 				}
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				cerr << "RecordingAndAlarmingState::HandleNoMotion(): An ERROR occurred: " << RVMsg(rv) << "." << endl;
-				throw(rv);
+				PRINTERR(rc);
+				throw rc;
 			}
 			catch (const exception& e)
 			{
-				cerr << "RecordingAndAlarmingState::HandleNoMotion(): An EXCEPTION occurred with message = " << e.what() << "." << endl;
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 		}
 

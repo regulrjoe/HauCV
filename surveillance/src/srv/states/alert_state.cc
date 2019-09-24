@@ -1,7 +1,7 @@
 #include "srv/states.hpp"
 
 #include "macros.hpp"
-#include "retval.hpp"
+#include "rcode.hpp"
 
 #include <iostream>
 
@@ -39,15 +39,15 @@ namespace hcv
 				changeCurrentState(i_system, RecordingState::Instance());
 				playAlertSound(i_system);
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				cerr << "AlertState::HandleMotion(): An ERROR was caught with RetVal = " << RVMsg(rv) << "." << endl;
-				throw(rv);
+				PRINTERR(rc);
+				throw rc;
 			}
 			catch (const exception& e)
 			{
-				cerr << "AlertState::HandleMotion(): An EXCEPTION was caught with message = " << e.what() << "." << endl;
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 		}
 

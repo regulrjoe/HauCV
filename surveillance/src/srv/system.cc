@@ -1,7 +1,7 @@
 #include "srv/system.hpp"
 
 #include "macros.hpp"
-#include "retval.hpp"
+#include "rcode.hpp"
 
 #include <opencv2/opencv.hpp>
 
@@ -56,7 +56,7 @@ namespace hcv
 			try
 			{
 				if (!cap.isOpened())
-					throw RetVal::NotOK;
+					throw RCode::NOTOK; // TODO: Set proper RCode.
 
 				// Setup reference frame for motion detection.
 				cap >> frame;
@@ -89,14 +89,14 @@ namespace hcv
 
 				cap.release();
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				cerr << "SRVSystem::Start(): An ERROR occurred: " << RVMsg(rv) << "." << endl;
+				PRINTERR(rc);
 				cap.release();
 			}
 			catch (const exception& e)
 			{
-				cerr << "SRVSystem::Start(): An EXCEPTION occurred with message = " << e.what() << "." << endl;
+				PRINTEXC(e);
 				cap.release();
 			}
 		}
@@ -108,13 +108,15 @@ namespace hcv
 			{
 				m_p_current_system_state->HandleMotion(this);
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				throw(rv);
+				PRINTERR(rc);
+				throw rc;
 			}
 			catch (const exception& e)
 			{
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 		}
 
@@ -125,13 +127,15 @@ namespace hcv
 			{
 				m_p_current_system_state->HandleNoMotion(this);
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				throw(rv);
+				PRINTERR(rc);
+				throw rc;
 			}
 			catch (const exception& e)
 			{
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 
 		}
@@ -160,10 +164,15 @@ namespace hcv
 			{
 				m_p_current_system_state = i_p_state;
 			}
+			catch (const RCode& rc)
+			{
+				PRINTERR(rc);
+				throw rc;
+			}
 			catch (const exception& e)
 			{
-				cerr << "Exception caught at SRVSystem::changeCurrentState(): " << e.what() << endl;
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 		}
 
@@ -174,10 +183,15 @@ namespace hcv
 			{
 				m_p_base_system_state = i_p_state;
 			}
+			catch (const RCode& rc)
+			{
+				PRINTERR(rc);
+				throw rc;
+			}
 			catch (const exception& e)
 			{
-				cerr << "Exception caught at SRVSystem::changeBaseState(): " << e.what() << endl;
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 		}
 

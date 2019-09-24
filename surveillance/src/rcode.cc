@@ -1,10 +1,10 @@
-#include "retval.hpp"
+#include "rcode.hpp"
 
 using namespace std;
 
 namespace hcv
 {
-	const string RetValMsg::m_messages[] = 
+	const string RCodeMsg::m_messages[] = 
 	{
 		/* OK */	"All OK.",
 		/* NOTOK */	"All not OK."

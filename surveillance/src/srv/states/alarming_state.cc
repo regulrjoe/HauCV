@@ -1,7 +1,7 @@
 #include "srv/states.hpp"
 
 #include "macros.hpp"
-#include "retval.hpp"
+#include "rcode.hpp"
 
 #include <iostream>
 
@@ -29,15 +29,15 @@ namespace hcv
 				startRecording(i_system);
 				changeCurrentState(i_system, RecordingAndAlarmingState::Instance());
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				cerr << "AlarmingState::HandleMotion(): An ERROR was caught with RetVal = " << RVMsg(rv) << "." << endl;
-				throw(rv);
+				PRINTERR(rc);
+				throw rc;
 			}
 			catch (const exception& e)
 			{
-				cerr << "AlarmingState::HandleMotion(): An EXCEPTION was caught with message = " << e.what() << "." << endl;
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 
 		}
@@ -45,21 +45,20 @@ namespace hcv
 		/////////////////////////////
 		void AlarmingState::HandleNoMotion(SRVSystem* i_system)
 		{
-
 			try
 			{
 				if (i_system->GetTimer()->IsTimeToStopAlarm())
 					stopAlarm(i_system);
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				cerr << "AlarmingState::HandleNoMotion(): An ERROR was caught with RetVal = " << RVMsg(rv) << "." << endl;
-				throw(rv);
+				PRINTERR(rc);
+				throw rc;
 			}
 			catch (const exception& e)
 			{
-				cerr << "AlarmingState::HandleNoMotion(): An EXCEPTION was caught with message = " << e.what() << "." << endl;
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 		}
 

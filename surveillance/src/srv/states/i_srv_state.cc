@@ -1,6 +1,7 @@
 #include "srv/states.hpp"
 
-#include "retval.hpp"
+#include "macros.hpp"
+#include "rcode.hpp"
 
 namespace hcv
 {
@@ -29,13 +30,15 @@ namespace hcv
 			{
 				i_system->changeBaseState(i_base_state);
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				throw(rv);
+				PRINTERR(rc);
+				throw rc;
 			}
 			catch (const exception& e)
 			{
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 		}
 
@@ -46,13 +49,15 @@ namespace hcv
 			{
 				i_system->changeCurrentState(i_state);
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				throw(rv);
+				PRINTERR(rc);
+				throw rc;
 			}
 			catch (const exception& e)
 			{
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 		}
 
@@ -63,13 +68,15 @@ namespace hcv
 			{
 				i_system->playAlertSound();
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				throw(rv);
+				PRINTERR(rc);
+				throw rc;
 			}
 			catch (const exception& e)
 			{
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 		}
 
@@ -78,15 +85,17 @@ namespace hcv
 		{
 			try
 			{
-				i_system->soundAlarm();
+				i_system->startAlarm();
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				throw(rv);
+				PRINTERR(rc);
+				throw rc;
 			}
 			catch (const exception& e)
 			{
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 		}
 
@@ -97,13 +106,15 @@ namespace hcv
 			{
 				i_system->startRecording();
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				throw(rv);
+				PRINTERR(rc);
+				throw rc;
 			}
 			catch (const exception& e)
 			{
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 		}
 
@@ -114,13 +125,15 @@ namespace hcv
 			{
 				i_system->stopAlarm();
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				throw(rv);
+				PRINTERR(rc);
+				throw rc;
 			}
 			catch (const exception& e)
 			{
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 		}
 
@@ -131,13 +144,15 @@ namespace hcv
 			{
 				i_system->stopRecording();
 			}
-			catch (const RetVal& rv)
+			catch (const RCode& rc)
 			{
-				throw(rv);
+				PRINTERR(rc);
+				throw rc;
 			}
 			catch (const exception& e)
 			{
-				throw(e);
+				PRINTEXC(e);
+				throw e;
 			}
 		}
 
