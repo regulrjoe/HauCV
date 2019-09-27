@@ -10,11 +10,12 @@ set(CPPZMQ_VERSION 4.3)
 add_library(srvlib
 	SHARED
 		src/motion_detector.cc
-		src/rcode.cc
+		src/utils/rcode.cc
 
-		src/soundcontroller/alarm.cc
-		src/soundcontroller/alarm_commands.cc
-		src/soundcontroller/sound_controller.cc
+		src/alarm/alarm.cc
+		src/alarm/alarm_commands.cc
+		src/alarm/alarm_states.cc
+		src/alarm/alarm_facade.cc
 
 		src/srv/builder.cc
 		src/srv/system.cc
@@ -56,7 +57,13 @@ target_compile_options(srvlib PRIVATE -Werror -g)
 target_compile_features(srvlib PRIVATE cxx_std_17)
 
 #Add compile definitions
-#target_compile_definitions(srvlib PUBLIC NDEBUG) #Comment to print. Uncomment to not print.
+target_compile_definitions(srvlib 
+	PUBLIC 
+		#DBG_MACRO_DISABLE #flag to disable the dbg(…) macro (i.e. to make it a no-op)
+		DBG_MACRO_NO_WARNING # flag to disable the "'dbg.h' header is included in your code base" warnings.
+		#PRINT_INFO_MACRO_DISABLE #flag to disable the printINFO(_) macro.
+		#PRINT_ERROR__MACRO_DISABLE #flag to disable the printERROR(_) macro.
+) 
 
 #------------------------
 # Create executable

@@ -4,7 +4,7 @@
 #include "srv/states.hpp"
 #include "srv/timer.hpp"
 
-#include "soundcontroller/sound_controller.hpp"
+#include "alarm/alarm_facade.hpp"
 
 #include "motion_detector.hpp"
 
@@ -28,7 +28,7 @@ namespace hcv
 		{
 			//// Methods
 			public:
-				SRVSystem(MotionDetector* const, SRVTimer* const, ISRVBaseState* const, SoundController* const);
+				SRVSystem(MotionDetector* const, SRVTimer* const, ISRVBaseState* const, AlarmFacade* const);
 
 				~SRVSystem();
 
@@ -39,6 +39,8 @@ namespace hcv
 				SRVTimer* GetTimer();
 
 				ISRVBaseState* GetBaseState();
+
+				AlarmFacade* GetAlarm();
 
 			private:
 				friend class ISRVState;
@@ -68,7 +70,7 @@ namespace hcv
 			private:
 				MotionDetector* m_p_motion_detector;
 
-				SoundController* m_sound_controller_ptr;
+				AlarmFacade* m_alarm_facade_ptr;
 
 				SRVTimer* m_p_timer;
 

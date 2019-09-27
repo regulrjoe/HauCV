@@ -3,10 +3,11 @@
 #include "srv/states.hpp"
 #include "srv/timer.hpp"
 
-#include "soundcontroller/sound_controller.hpp"
+#include "alarm/alarm.hpp"
+#include "alarm/alarm_facade.hpp"
 
 #include "motion_detector.hpp"
-#include "macros.hpp"
+#include "utils/macros.hpp"
 
 #include <zmq.hpp>
 
@@ -28,7 +29,7 @@ namespace hcv
 				const string& i_alert_soundfile
 				)
 		{
-			PRINT("Building Alert System.");
+			printINFO("Building Alert System.");
 
 			MotionDetector* motion_detector = new MotionDetector();
 			motion_detector->SetMinimumArea(i_motion_detector_min_area);
@@ -39,16 +40,14 @@ namespace hcv
 					i_seconds_to_stop_recording
 					);
 
-			SoundController* sound_ctrl_ptr = new SoundController(
-					i_alarm_soundfile,
-					i_alert_soundfile
-					);
+			Alarm* alarm_ptr = new Alarm(i_alarm_soundfile);
+			AlarmFacade* alarm_facade_ptr = new AlarmFacade(alarm_ptr);
 
 			return new SRVSystem(
 					motion_detector,
 					timer,
 					AlertState::InstanceAsBase(),
-					sound_ctrl_ptr
+					alarm_facade_ptr
 					);
 		}
 
@@ -62,7 +61,7 @@ namespace hcv
 				const string& i_alert_soundfile
 				)
 		{
-			PRINT("Building Idle System.");
+			printINFO("Building Idle System.");
 
 			MotionDetector* motion_detector = new MotionDetector();
 			motion_detector->SetMinimumArea(i_motion_detector_min_area);
@@ -73,16 +72,14 @@ namespace hcv
 					i_seconds_to_stop_recording
 					);
 
-			SoundController* sound_ctrl_ptr = new SoundController(
-					i_alarm_soundfile,
-					i_alert_soundfile
-					);
+			Alarm* alarm_ptr = new Alarm(i_alarm_soundfile);
+			AlarmFacade* alarm_facade_ptr = new AlarmFacade(alarm_ptr);
 
 			return new SRVSystem(
 					motion_detector,
 					timer,
 					IdleState::InstanceAsBase(),
-					sound_ctrl_ptr
+					alarm_facade_ptr
 					);
 		}
 	} // namespace srv

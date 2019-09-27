@@ -1,5 +1,5 @@
-#ifndef I_COMMAND_HPP
-#define I_COMMAND_HPP
+#ifndef COMMANDS_HPP
+#define COMMANDS_HPP
 
 namespace hcv
 {

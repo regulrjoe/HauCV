@@ -23,7 +23,7 @@ namespace hcv
 				void changeBaseState(SRVSystem*, ISRVBaseState*);
 				void changeCurrentState(SRVSystem*, ISRVState*);
 				void playAlertSound(SRVSystem*);
-				void soundAlarm(SRVSystem*);
+				void startAlarm(SRVSystem*);
 				void startRecording(SRVSystem*);
 				void stopAlarm(SRVSystem*);
 				void stopRecording(SRVSystem*);

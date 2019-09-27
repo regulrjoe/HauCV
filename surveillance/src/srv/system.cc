@@ -1,7 +1,9 @@
 #include "srv/system.hpp"
 
-#include "macros.hpp"
-#include "rcode.hpp"
+#include "utils/macros.hpp"
+#include "utils/rcode.hpp"
+
+#include <dbg.h>
 
 #include <opencv2/opencv.hpp>
 
@@ -19,14 +21,15 @@ namespace hcv
 				MotionDetector* const i_p_motion_detector,
 				SRVTimer* const i_p_timer,
 				ISRVBaseState* const i_p_base_state,
-				SoundController* const i_sound_controller_ptr) :
+				AlarmFacade* const i_alarm_facade_ptr) :
 			m_p_motion_detector(i_p_motion_detector),
 			m_p_base_system_state(i_p_base_state),
 			m_p_timer(i_p_timer),
 			m_p_current_system_state(i_p_base_state),
-			m_sound_controller_ptr(i_sound_controller_ptr)
+			m_alarm_facade_ptr(i_alarm_facade_ptr)
 		{
-			PRINT("SRVSystem constructed.");
+			dbg("SRVSystem::SRVSystem()");
+			//printINFO("SRVSystem constructed.");
 			m_context_ptr = new zmq::context_t(1);
 			m_running_flag = false;
 		}
@@ -34,19 +37,19 @@ namespace hcv
 		///////////////////////////
 		SRVSystem::~SRVSystem()
 		{
-			delete m_sound_controller_ptr;
+			dbg("SRVSystem::~SRVSystem()");
+			delete m_alarm_facade_ptr;
 			delete m_p_motion_detector;
 			delete m_p_base_system_state;
 			delete m_p_current_system_state;
 			delete m_p_timer;
-
-			PRINT("SRVSystem destroyed.");
 		}
 
 		///////////////////////////
 		void SRVSystem::Start(const uint16_t& i_runtime)
 		{
-			m_sound_controller_ptr->Init(m_context_ptr);
+			dbg("SRVSystem::Start()");
+			m_alarm_facade_ptr->Init(m_context_ptr);
 
 			// Setup variables.
 			bool motion;
@@ -70,6 +73,8 @@ namespace hcv
 				if (i_runtime > 0)
 					start = system_clock::now();
 
+				m_running_flag = true;
+
 				while (cap.isOpened())
 				{
 					// Time to stop?
@@ -83,6 +88,7 @@ namespace hcv
 
 					// No? Then get the frame man!
 					cap >> frame;
+					cv::imshow("main", frame);
 					
 					// Is someone moving in the frame?
 					if (m_p_motion_detector->DetectMotion(frame))
@@ -92,16 +98,17 @@ namespace hcv
 				}
 
 				cap.release();
-				m_sound_controller_ptr->ShutdownAlarm();
+				m_alarm_facade_ptr->Shutdown();
+				m_running_flag = false;
 			}
 			catch (const RCode& rc)
 			{
-				PRINTERR(rc);
+				printERROR(RCMsg(rc));
 				cap.release();
 			}
 			catch (const exception& e)
 			{
-				PRINTEXC(e);
+				printERROR(e.what());
 				cap.release();
 			}
 		}
@@ -109,18 +116,19 @@ namespace hcv
 		///////////////////////////
 		void SRVSystem::handleFrameWithMotion()
 		{
+			dbg("SRVSystem::handleFrameWithMotion()");
 			try
 			{
 				m_p_current_system_state->HandleMotion(this);
 			}
 			catch (const RCode& rc)
 			{
-				PRINTERR(rc);
+				printERROR(RCMsg(rc));
 				throw rc;
 			}
 			catch (const exception& e)
 			{
-				PRINTEXC(e);
+				printERROR(e.what());
 				throw e;
 			}
 		}
@@ -128,18 +136,19 @@ namespace hcv
 		///////////////////////////
 		void SRVSystem::handleFrameWithNoMotion()
 		{
+			dbg("SRVSystem::handleFrameWithNoMotion()");
 			try
 			{
 				m_p_current_system_state->HandleNoMotion(this);
 			}
 			catch (const RCode& rc)
 			{
-				PRINTERR(rc);
+				printERROR(RCMsg(rc));
 				throw rc;
 			}
 			catch (const exception& e)
 			{
-				PRINTEXC(e);
+				printERROR(e.what());
 				throw e;
 			}
 
@@ -148,35 +157,39 @@ namespace hcv
 		///////////////////////////
 		void SRVSystem::Stop()
 		{
-			// TODO.
+			dbg("SRVSystem::Stop()");
+			m_running_flag = false;
 		}
 
 		///////////////////////////
 		SRVTimer* SRVSystem::GetTimer()
 		{
+			dbg("SRVSystem::GetTimer()");
 			return m_p_timer;
 		}
 
 		ISRVBaseState* SRVSystem::GetBaseState()
 		{
+			dbg("SRVSystem::GetBaseState()");
 			return m_p_base_system_state;
 		}
 
 		///////////////////////////
 		void SRVSystem::changeCurrentState(ISRVState* i_p_state)
 		{
+			dbg("SRVSystem::changeCurrentState()");
 			try
 			{
 				m_p_current_system_state = i_p_state;
 			}
 			catch (const RCode& rc)
 			{
-				PRINTERR(rc);
+				printERROR(RCMsg(rc));
 				throw rc;
 			}
 			catch (const exception& e)
 			{
-				PRINTEXC(e);
+				printERROR(e.what());
 				throw e;
 			}
 		}
@@ -184,18 +197,19 @@ namespace hcv
 		///////////////////////////
 		void SRVSystem::changeBaseState(ISRVBaseState* i_p_state)
 		{
+			dbg("SRVSystem::changeBaseState()");
 			try
 			{
 				m_p_base_system_state = i_p_state;
 			}
 			catch (const RCode& rc)
 			{
-				PRINTERR(rc);
+				printERROR(RCMsg(rc));
 				throw rc;
 			}
 			catch (const exception& e)
 			{
-				PRINTEXC(e);
+				printERROR(e.what());
 				throw e;
 			}
 		}
@@ -209,7 +223,8 @@ namespace hcv
 		///////////////////////////
 		void SRVSystem::startAlarm()
 		{
-			m_sound_controller_ptr->StartAlarm();
+			dbg("SRVSystem::startAlarm()");
+			m_alarm_facade_ptr->Start();
 		}
 
 		///////////////////////////
@@ -221,7 +236,8 @@ namespace hcv
 		///////////////////////////
 		void SRVSystem::stopAlarm()
 		{
-			m_sound_controller_ptr->StopAlarm();
+			dbg("SRVSystem::stopAlarm()");
+			m_alarm_facade_ptr->Stop();
 		}
 
 		///////////////////////////

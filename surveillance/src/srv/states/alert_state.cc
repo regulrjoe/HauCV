@@ -1,7 +1,7 @@
 #include "srv/states.hpp"
 
-#include "macros.hpp"
-#include "rcode.hpp"
+#include "utils/macros.hpp"
+#include "utils/rcode.hpp"
 
 #include <iostream>
 
@@ -41,12 +41,12 @@ namespace hcv
 			}
 			catch (const RCode& rc)
 			{
-				PRINTERR(rc);
+				printERROR(RCMsg(rc));
 				throw rc;
 			}
 			catch (const exception& e)
 			{
-				PRINTEXC(e);
+				printERROR(e.what());
 				throw e;
 			}
 		}

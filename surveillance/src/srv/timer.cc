@@ -1,5 +1,5 @@
 #include "srv/timer.hpp"
-#include "macros.hpp"
+#include "utils/macros.hpp"
 
 #include <chrono>
 #include <iostream>
@@ -19,7 +19,7 @@ namespace hcv
 			m_seconds_to_stop_recording(i_SRVTimer.m_seconds_to_stop_recording),
 			m_motion_timestamps(i_SRVTimer.m_motion_timestamps)
 		{
-			PRINT("SRVTimer constructed by copy.");
+			printINFO("SRVTimer constructed by copy.");
 		}
 
 		////////////////////
@@ -34,13 +34,13 @@ namespace hcv
 		{
 			this->UpdateMotionTimestamps();
 
-			PRINT("SRVTimer constructed with parameters.");
+			printINFO("SRVTimer constructed with parameters.");
 		}
 		
 		////////////////////
 		SRVTimer::~SRVTimer()
 		{
-			PRINT("SRVTimer destroyed.");
+			printINFO("SRVTimer destroyed.");
 		}
 
 		////////////////////
@@ -76,7 +76,7 @@ namespace hcv
 		{
 			m_motion_timestamps.first = m_motion_timestamps.second = i_time;
 
-			PRINT("SRVTimer: Motion timestamps updated to: " << ctime(&m_motion_timestamps.first));
+			printINFO("Motion timestamps updated to: " << ctime(&m_motion_timestamps.first));
 		}
 
 		////////////////////
@@ -84,7 +84,7 @@ namespace hcv
 		{
 			m_motion_timestamps.second = i_time;
 
-			PRINT("SRVTimer: Last motion timestamp updated to: " << ctime(&m_motion_timestamps.second));
+			printINFO("Last motion timestamp updated to: " << ctime(&m_motion_timestamps.second));
 		}
 
 	} // namespace srv

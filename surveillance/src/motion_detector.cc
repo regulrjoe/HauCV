@@ -1,6 +1,6 @@
 #include "motion_detector.hpp"
 
-#include "macros.hpp"
+#include "utils/macros.hpp"
 
 #include <opencv2/imgproc.hpp>
 
@@ -17,7 +17,7 @@ namespace hcv
 	///////////////////////////////
 	MotionDetector::MotionDetector()
 	{
-		PRINT("MotionDetector empty constructed.");
+		printINFO("MotionDetector empty constructed.");
 	}
 
 	///////////////////////////////
@@ -26,7 +26,7 @@ namespace hcv
 			const uint16_t& i_min_area) :
 		m_min_area(i_min_area)
 	{
-		PRINT("MotionDetector constructed with parameters.");
+		printINFO("MotionDetector constructed with parameters.");
 		
 		// Turn to grayscale.
 		cv::cvtColor(i_reference_frame, m_reference_frame, cv::COLOR_BGR2GRAY);
@@ -41,13 +41,13 @@ namespace hcv
 		m_reference_frame(i_motion_detector.m_reference_frame),
 		m_min_area(i_motion_detector.m_min_area)
 	{
-		PRINT("MotionDetector copy constructed.");
+		printINFO("MotionDetector copy constructed.");
 	}
 
 	///////////////////////////////
 	MotionDetector::~MotionDetector()
 	{
-		PRINT("MotionDetector destroyed.");
+		printINFO("MotionDetector destroyed.");
 	}
 
 	///////////////////////////////
@@ -95,9 +95,7 @@ namespace hcv
 		
 		// Save image to file.
 		if (result)
-			cv::imwrite("/app/tests/img/output/positive_" + to_string(system_clock::to_time_t(system_clock::now())) + ".jpg", tmp);
-		else
-			cv::imwrite("/app/tests/img/output/negative_" + to_string(system_clock::to_time_t(system_clock::now())) + ".jpg", tmp);
+			cv::imwrite("/app/surveillance/output/" + to_string(system_clock::to_time_t(system_clock::now())) + ".jpg", tmp);
 
 		return result;
 	}
@@ -112,14 +110,14 @@ namespace hcv
 		// Apply Gaussian Blur.
 		cv::GaussianBlur(m_reference_frame, m_reference_frame, cv::Size(21, 21), 0);
 
-		PRINT("Reference frame updated.");
+		printINFO("Reference frame updated.");
 	}
 
 	///////////////////////////////
 	void MotionDetector::SetMinimumArea(const uint16_t& i_min_area)
 	{
 		m_min_area = i_min_area;
-		PRINT("Minimum area updated.");
+		printINFO("Minimum area updated.");
 	}
 
 } // namespace hcv

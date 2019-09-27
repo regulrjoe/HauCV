@@ -1,7 +1,9 @@
 #ifndef ALARM_COMMANDS_HPP
 #define ALARM_COMMANDS_HPP
 
-#include "soundcontroller/i_command.hpp"
+#include "i_command.hpp"
+
+#include <string>
 
 namespace hcv
 {
@@ -41,6 +43,17 @@ namespace hcv
 		public:
 			ShutdownAlarmCommand(Alarm*);
 			void Execute();
+	};
+	
+	////////////////////// UpdateSoundfileAlarmCommand
+	class UpdateSoundfileAlarmCommand : public AlarmCommand
+	{
+		public:
+			UpdateSoundfileAlarmCommand(Alarm*, const std::string&);
+			void Execute();
+
+		private:
+			std::string m_soundfile;
 	};
 
 } // namespace hcv

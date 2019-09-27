@@ -1,7 +1,7 @@
 #include "srv/states.hpp"
 
-#include "macros.hpp"
-#include "rcode.hpp"
+#include "utils/macros.hpp"
+#include "utils/rcode.hpp"
 
 namespace hcv
 {
@@ -28,18 +28,18 @@ namespace hcv
 
 				if (i_system->GetTimer()->IsTimeToSoundAlarm())
 				{
-					soundAlarm(i_system);
+					startAlarm(i_system);
 					changeCurrentState(i_system, RecordingAndAlarmingState::Instance());
 				}
 			}
 			catch (const RCode& rc)
 			{
-				PRINTERR(rc);
+				printERROR(RCMsg(rc));
 				throw rc;
 			}
 			catch (const exception& e)
 			{
-				PRINTEXC(e);
+				printERROR(e.what());
 				throw e;
 			}
 		}
@@ -57,12 +57,12 @@ namespace hcv
 			}
 			catch (const RCode& rc)
 			{
-				PRINTERR(rc);
+				printERROR(RCMsg(rc));
 				throw rc;
 			}
 			catch (const exception& e)
 			{
-				PRINTEXC(e);
+				printERROR(e.what());
 				throw e;
 			}
 		}
