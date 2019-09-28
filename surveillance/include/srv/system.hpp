@@ -55,17 +55,6 @@ namespace hcv
 	
 				void changeCurrentState(ISRVState*);
 
-				void playAlertSound();
-
-				void startAlarm();
-
-				void startRecording();
-
-				void stopAlarm();
-
-				void stopRecording();
-
-
 			//// Data
 			private:
 				MotionDetector* m_p_motion_detector;

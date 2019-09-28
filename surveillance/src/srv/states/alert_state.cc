@@ -29,26 +29,13 @@ namespace hcv
 		}
 
 		/////////////////////////////
-		void AlertState::HandleMotion(SRVSystem* i_system)
+		void AlertState::HandleFrameWithMotion(SRVSystem* i_system)
 		{
-			try
-			{
-				i_system->GetTimer()->UpdateMotionTimestamps();
+			i_system->GetTimer()->UpdateMotionTimestamps();
 
-				startRecording(i_system);
-				changeCurrentState(i_system, RecordingState::Instance());
-				playAlertSound(i_system);
-			}
-			catch (const RCode& rc)
-			{
-				printERROR(RCMsg(rc));
-				throw rc;
-			}
-			catch (const exception& e)
-			{
-				printERROR(e.what());
-				throw e;
-			}
+			//startRecording(i_system);
+			changeCurrentState(i_system, RecordingState::Instance());
+			//playAlertSound(i_system);
 		}
 
 	} // namespace srv

@@ -20,50 +20,24 @@ namespace hcv
 		}
 
 		/////////////////////////////
-		void RecordingState::HandleMotion(SRVSystem* i_system)
+		void RecordingState::HandleFrameWithMotion(SRVSystem* i_system)
 		{
-			try
-			{
-				i_system->GetTimer()->UpdateLastMotionTimestamp();
+			i_system->GetTimer()->UpdateLastMotionTimestamp();
 
-				if (i_system->GetTimer()->IsTimeToSoundAlarm())
-				{
-					startAlarm(i_system);
-					changeCurrentState(i_system, RecordingAndAlarmingState::Instance());
-				}
-			}
-			catch (const RCode& rc)
+			if (i_system->GetTimer()->IsTimeToSoundAlarm())
 			{
-				printERROR(RCMsg(rc));
-				throw rc;
-			}
-			catch (const exception& e)
-			{
-				printERROR(e.what());
-				throw e;
+				i_system->GetAlarm()->Start();
+				this->changeCurrentState(i_system, RecordingAndAlarmingState::Instance());
 			}
 		}
 
 		/////////////////////////////
-		void RecordingState::HandleNoMotion(SRVSystem* i_system)
+		void RecordingState::HandleFrameWithNoMotion(SRVSystem* i_system)
 		{
-			try
+			if (i_system->GetTimer()->IsTimeToStopRecording())
 			{
-				if (i_system->GetTimer()->IsTimeToStopRecording())
-				{
-					stopRecording(i_system);
-					changeCurrentState(i_system, i_system->GetBaseState());
-				}
-			}
-			catch (const RCode& rc)
-			{
-				printERROR(RCMsg(rc));
-				throw rc;
-			}
-			catch (const exception& e)
-			{
-				printERROR(e.what());
-				throw e;
+				//stopRecording(i_system);
+				this->changeCurrentState(i_system, i_system->GetBaseState());
 			}
 		}
 

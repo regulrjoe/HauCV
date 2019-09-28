@@ -20,58 +20,30 @@ namespace hcv
 		}
 
 		/////////////////////////////
-		void RecordingAndAlarmingState::HandleMotion(SRVSystem* i_system)
+		void RecordingAndAlarmingState::HandleFrameWithMotion(SRVSystem* i_system)
 		{
-			try
-			{
-				i_system->GetTimer()->UpdateLastMotionTimestamp();
-			}
-			catch (const RCode& rc)
-			{
-				printERROR(RCMsg(rc));
-				throw rc;
-			}
-			catch (const exception& e)
-			{
-				printERROR(e.what());
-				throw e;
-			}
-
+			i_system->GetTimer()->UpdateLastMotionTimestamp();
 		}
 
 		/////////////////////////////
-		void RecordingAndAlarmingState::HandleNoMotion(SRVSystem* i_system)
+		void RecordingAndAlarmingState::HandleFrameWithNoMotion(SRVSystem* i_system)
 		{
-			try
+			if (i_system->GetTimer()->IsTimeToStopRecording() && i_system->GetTimer()->IsTimeToStopAlarm())
 			{
-				if (i_system->GetTimer()->IsTimeToStopRecording() && i_system->GetTimer()->IsTimeToStopAlarm())
-				{
-					stopRecording(i_system);
-					stopAlarm(i_system);
-					changeCurrentState(i_system, i_system->GetBaseState());
-				}
-				else if (i_system->GetTimer()->IsTimeToStopRecording())
-				{
-					stopRecording(i_system);
-					changeCurrentState(i_system, AlarmingState::Instance());
-				}
-				else if (i_system->GetTimer()->IsTimeToStopAlarm())
-				{
-					stopAlarm(i_system);
-					changeCurrentState(i_system, RecordingState::Instance());
-				}
+				//stopRecording(i_system);
+				i_system->GetAlarm()->Stop();
+				this->changeCurrentState(i_system, i_system->GetBaseState());
 			}
-			catch (const RCode& rc)
+			else if (i_system->GetTimer()->IsTimeToStopRecording())
 			{
-				printERROR(RCMsg(rc));
-				throw rc;
+				//stopRecording(i_system);
+				this->changeCurrentState(i_system, AlarmingState::Instance());
 			}
-			catch (const exception& e)
+			else if (i_system->GetTimer()->IsTimeToStopAlarm())
 			{
-				printERROR(e.what());
-				throw e;
+				i_system->GetAlarm()->Stop();
+				this->changeCurrentState(i_system, RecordingState::Instance());
 			}
 		}
-
 	} // namespace srv
 } // namespace hcv
