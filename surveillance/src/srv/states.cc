@@ -136,7 +136,9 @@ namespace hcv
 
 			if (i_system->GetTimer()->IsTimeToSoundAlarm())
 			{
-				i_system->GetAlarm()->Start();
+				if (i_system->GetBaseState() == AlertState::InstanceAsBase())
+					i_system->GetAlarm()->Start();
+
 				this->changeCurrentState(i_system, RecordingAndAlarmingState::Instance());
 			}
 		}
