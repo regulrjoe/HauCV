@@ -6,6 +6,8 @@
 
 #include "alarm/alarm_facade.hpp"
 
+#include "alert/alert.hpp"
+
 #include "motion_detector.hpp"
 
 #include <zmq.hpp>
@@ -28,7 +30,7 @@ namespace hcv
 		{
 			//// Methods
 			public:
-				SRVSystem(MotionDetector* const, SRVTimer* const, ISRVBaseState* const, AlarmFacade* const);
+				SRVSystem(MotionDetector* const, SRVTimer* const, ISRVBaseState* const, AlarmFacade* const, Alert* const);
 
 				~SRVSystem();
 
@@ -41,6 +43,8 @@ namespace hcv
 				ISRVBaseState* GetBaseState();
 
 				AlarmFacade* GetAlarm();
+
+				Alert* GetAlert();
 
 			private:
 				friend class ISRVState;
@@ -60,6 +64,8 @@ namespace hcv
 				MotionDetector* m_p_motion_detector;
 
 				AlarmFacade* m_alarm_facade_ptr;
+
+				Alert* m_alert_ptr;
 
 				SRVTimer* m_p_timer;
 

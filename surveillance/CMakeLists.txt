@@ -17,6 +17,8 @@ add_library(srvlib
 		src/alarm/alarm_states.cc
 		src/alarm/alarm_facade.cc
 
+		src/alert/alert.cc
+
 		src/srv/builder.cc
 		src/srv/system.cc
 		src/srv/timer.cc

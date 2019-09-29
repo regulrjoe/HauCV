@@ -99,7 +99,6 @@ namespace hcv
 	///////////////////////
 	void Alarm::handleRequest(Alarm* i_alarm_ptr)
 	{
-		dbg("Alarm::handleRequest()");
 		int ret = zmq::poll(i_alarm_ptr->m_pollitem, 1, 0);
 
 		if (ret < 0) // exception
@@ -168,7 +167,6 @@ namespace hcv
 	///////////////////////
 	void Alarm::play()
 	{
-		dbg("Alarm::play()");
 		try
 		{		
 			m_state_ptr->Play(this);
