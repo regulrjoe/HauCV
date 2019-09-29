@@ -6,6 +6,8 @@
 #include "alarm/alarm.hpp"
 #include "alarm/alarm_facade.hpp"
 
+#include "alert/alert.hpp"
+
 #include "motion_detector.hpp"
 #include "utils/macros.hpp"
 
@@ -43,11 +45,14 @@ namespace hcv
 			Alarm* alarm_ptr = new Alarm(i_alarm_soundfile);
 			AlarmFacade* alarm_facade_ptr = new AlarmFacade(alarm_ptr);
 
+			Alert* alert_ptr = new Alert(i_alert_soundfile);
+
 			return new SRVSystem(
 					motion_detector,
 					timer,
 					AlertState::InstanceAsBase(),
-					alarm_facade_ptr
+					alarm_facade_ptr,
+					alert_ptr
 					);
 		}
 
@@ -75,11 +80,14 @@ namespace hcv
 			Alarm* alarm_ptr = new Alarm(i_alarm_soundfile);
 			AlarmFacade* alarm_facade_ptr = new AlarmFacade(alarm_ptr);
 
+			Alert* alert_ptr = new Alert(i_alert_soundfile);
+
 			return new SRVSystem(
 					motion_detector,
 					timer,
 					IdleState::InstanceAsBase(),
-					alarm_facade_ptr
+					alarm_facade_ptr,
+					alert_ptr
 					);
 		}
 	} // namespace srv

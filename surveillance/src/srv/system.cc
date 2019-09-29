@@ -21,12 +21,14 @@ namespace hcv
 				MotionDetector* const i_p_motion_detector,
 				SRVTimer* const i_p_timer,
 				ISRVBaseState* const i_p_base_state,
-				AlarmFacade* const i_alarm_facade_ptr) :
+				AlarmFacade* const i_alarm_facade_ptr,
+				Alert* const i_alert_ptr) :
 			m_p_motion_detector(i_p_motion_detector),
 			m_p_base_system_state(i_p_base_state),
 			m_p_timer(i_p_timer),
 			m_p_current_system_state(i_p_base_state),
-			m_alarm_facade_ptr(i_alarm_facade_ptr)
+			m_alarm_facade_ptr(i_alarm_facade_ptr),
+			m_alert_ptr(i_alert_ptr)
 		{
 			dbg("SRVSystem::SRVSystem()");
 			//printINFO("SRVSystem constructed.");
@@ -38,6 +40,7 @@ namespace hcv
 		SRVSystem::~SRVSystem()
 		{
 			dbg("SRVSystem::~SRVSystem()");
+			delete m_alert_ptr;
 			delete m_alarm_facade_ptr;
 			delete m_p_motion_detector;
 			delete m_p_base_system_state;
@@ -116,7 +119,6 @@ namespace hcv
 		///////////////////////////
 		void SRVSystem::handleFrameWithMotion()
 		{
-			dbg("SRVSystem::handleFrameWithMotion()");
 			try
 			{
 				m_p_current_system_state->HandleFrameWithMotion(this);
@@ -136,7 +138,6 @@ namespace hcv
 		///////////////////////////
 		void SRVSystem::handleFrameWithNoMotion()
 		{
-			dbg("SRVSystem::handleFrameWithNoMotion()");
 			try
 			{
 				m_p_current_system_state->HandleFrameWithNoMotion(this);
@@ -164,7 +165,6 @@ namespace hcv
 		///////////////////////////
 		SRVTimer* SRVSystem::GetTimer()
 		{
-			dbg("SRVSystem::GetTimer()");
 			return m_p_timer;
 		}
 
@@ -172,6 +172,12 @@ namespace hcv
 		AlarmFacade* SRVSystem::GetAlarm()
 		{
 			return m_alarm_facade_ptr;
+		}
+
+		Alert* SRVSystem::GetAlert()
+		{
+			dbg("SRVSystem::GetAlert()");
+			return m_alert_ptr;
 		}
 
 		///////////////////////////
