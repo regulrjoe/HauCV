@@ -20,14 +20,8 @@ add_library(srvlib
 		src/srv/builder.cc
 		src/srv/system.cc
 		src/srv/timer.cc
+		src/srv/states.cc
 
-		src/srv/states/alarming_state.cc
-		src/srv/states/alert_state.cc
-		src/srv/states/idle_state.cc
-		src/srv/states/i_srv_base_state.cc
-		src/srv/states/i_srv_state.cc
-		src/srv/states/recording_and_alarming_state.cc
-		src/srv/states/recording_state.cc
 )
 
 
