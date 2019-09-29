@@ -16,17 +16,12 @@ namespace hcv
 		{
 			public:
 				virtual ~ISRVState() = 0;
-				virtual void HandleMotion(SRVSystem*);
-				virtual void HandleNoMotion(SRVSystem*);
+				virtual void HandleFrameWithMotion(SRVSystem*) = 0;
+				virtual void HandleFrameWithNoMotion(SRVSystem*) = 0;
 
 			protected:
 				void changeBaseState(SRVSystem*, ISRVBaseState*);
 				void changeCurrentState(SRVSystem*, ISRVState*);
-				void playAlertSound(SRVSystem*);
-				void startAlarm(SRVSystem*);
-				void startRecording(SRVSystem*);
-				void stopAlarm(SRVSystem*);
-				void stopRecording(SRVSystem*);
 		};
 
 		////////////////////// ISRVBaseState
@@ -42,8 +37,9 @@ namespace hcv
 			public:
 				static ISRVState* Instance();
 				static ISRVBaseState* InstanceAsBase();
-				void HandleMotion(SRVSystem*);
-				//void HandleNoMotion(SRVSystem*);
+
+				void HandleFrameWithMotion(SRVSystem*);
+				void HandleFrameWithNoMotion(SRVSystem*);
 
 			private:
 				AlertState() {}
@@ -59,8 +55,9 @@ namespace hcv
 				IdleState() {}
 				static ISRVState* Instance();
 				static ISRVBaseState* InstanceAsBase();
-				void HandleMotion(SRVSystem*);
-				//void HandleNoMotion(SRVSystem*);
+				
+				void HandleFrameWithMotion(SRVSystem*);
+				void HandleFrameWithNoMotion(SRVSystem*);
 
 			private:
 				static IdleState* singleton;
@@ -71,8 +68,9 @@ namespace hcv
 		{
 			public:
 				static ISRVState* Instance();
-				void HandleMotion(SRVSystem*);
-				void HandleNoMotion(SRVSystem*);
+
+				void HandleFrameWithMotion(SRVSystem*);
+				void HandleFrameWithNoMotion(SRVSystem*);
 
 			private:
 				RecordingState() {}
@@ -86,8 +84,9 @@ namespace hcv
 		{
 			public:
 				static ISRVState* Instance();
-				void HandleMotion(SRVSystem*);
-				void HandleNoMotion(SRVSystem*);
+
+				void HandleFrameWithMotion(SRVSystem*);
+				void HandleFrameWithNoMotion(SRVSystem*);
 
 			private:
 				AlarmingState() {}
@@ -101,8 +100,9 @@ namespace hcv
 		{
 			public:
 				static ISRVState* Instance();
-				void HandleMotion(SRVSystem*);
-				void HandleNoMotion(SRVSystem*);
+
+				void HandleFrameWithMotion(SRVSystem*);
+				void HandleFrameWithNoMotion(SRVSystem*);
 
 			private:
 				RecordingAndAlarmingState() {}

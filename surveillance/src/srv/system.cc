@@ -119,7 +119,7 @@ namespace hcv
 			dbg("SRVSystem::handleFrameWithMotion()");
 			try
 			{
-				m_p_current_system_state->HandleMotion(this);
+				m_p_current_system_state->HandleFrameWithMotion(this);
 			}
 			catch (const RCode& rc)
 			{
@@ -139,7 +139,7 @@ namespace hcv
 			dbg("SRVSystem::handleFrameWithNoMotion()");
 			try
 			{
-				m_p_current_system_state->HandleNoMotion(this);
+				m_p_current_system_state->HandleFrameWithNoMotion(this);
 			}
 			catch (const RCode& rc)
 			{
@@ -168,6 +168,13 @@ namespace hcv
 			return m_p_timer;
 		}
 
+		///////////////////////////
+		AlarmFacade* SRVSystem::GetAlarm()
+		{
+			return m_alarm_facade_ptr;
+		}
+
+		///////////////////////////
 		ISRVBaseState* SRVSystem::GetBaseState()
 		{
 			dbg("SRVSystem::GetBaseState()");
@@ -213,38 +220,5 @@ namespace hcv
 				throw e;
 			}
 		}
-
-		///////////////////////////
-		void SRVSystem::playAlertSound()
-		{
-			// TODO.
-		}
-
-		///////////////////////////
-		void SRVSystem::startAlarm()
-		{
-			dbg("SRVSystem::startAlarm()");
-			m_alarm_facade_ptr->Start();
-		}
-
-		///////////////////////////
-		void SRVSystem::startRecording()
-		{
-			// TODO.
-		}
-
-		///////////////////////////
-		void SRVSystem::stopAlarm()
-		{
-			dbg("SRVSystem::stopAlarm()");
-			m_alarm_facade_ptr->Stop();
-		}
-
-		///////////////////////////
-		void SRVSystem::stopRecording()
-		{
-			// TODO.
-		}
-
 	} // namespace srv
 } // namespace hcv
