@@ -19,3 +19,47 @@ except ConnectionFailure:
 
 logging.info('Connection with mongodb established.')
 hausdb = mongoclient.hauscv
+
+from telegram.ext import Updater
+from telegram.ext import CommandHandler
+from telegram.ext import MessageHandler, Filters
+
+updater = Updater(token=os.environ['TELEGRAM_TOKEN'], use_context=True)
+
+dispatcher = updater.dispatcher
+
+def start(update, context):
+    chat_id = update.message.chat_id
+    username = update.message.from_user.username
+    first_name = update.message.from_user.first_name
+    logging.info(f'New /start message received from {chat_id}')
+    try:
+        user = hausdb.users.find_one({'telegram_chat_id': chat_id})
+    except pymongo.errors.PyMongoError:
+        logging.exception('Query to Users collection failed.')
+        sys.exit(1)
+
+    if user is None:
+
+        try:
+            new_user = {'telegram_chat_id': chat_id, 'username': username, 'first_name': first_name}
+            new_user_id = hausdb.users.insert_one(new_user)
+            logging.info(f'New user {new_user_id} persisted to DB with chat_id {chat_id}')
+        except pymongo.errors.PyMongoError:
+            logging.exception('Insertion of new user failed.')
+            sys.exit(1)
+
+        context.bot.send_message(chat_id=chat_id, text=f"Hi {first_name} welcome to your HausCV!")
+
+    else:
+        logging.info(f'User with chat_id {chat_id} already exists in DB.')
+        context.bot.send_message(chat_id=chat_id, text=f"Oh! Looks like you're already registered to your HausCV!")
+    
+
+start_handler = CommandHandler('start', start)
+dispatcher.add_handler(start_handler)
+
+
+logging.info('Polling now for new messages.')
+
+updater.start_polling()
