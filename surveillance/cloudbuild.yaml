@@ -4,13 +4,13 @@ steps:
   args:
     - '-c'
     - |
-        docker pull gcr.io/hauscv/devenv || exit 0
+        docker pull gcr.io/hauscv/surveillance || exit 0
 - name: 'gcr.io/cloud-builders/docker'
   args: [
       'build', '.',
-      '-t', 'gcr.io/hauscv/devenv'
+      '-t', 'gcr.io/hauscv/surveillance'
       ]
   timeout: 2400s
 images: 
-    - 'gcr.io/hauscv/devenv'
+    - 'gcr.io/hauscv/surveillance'
 timeout: 2400s

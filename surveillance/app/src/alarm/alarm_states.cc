@@ -93,7 +93,6 @@ namespace hcv
 		/////////////////////////////////
 		void InactiveAlarmState::Play(Alarm* i_alarm_ptr)
 		{
-			dbg("InactiveAlarmState::Play()");
 			this_thread::sleep_for(chrono::milliseconds(1000));
 		}
 

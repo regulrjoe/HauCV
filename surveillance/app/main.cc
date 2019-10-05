@@ -22,7 +22,7 @@ int main()
 	string alert_soundfile = "/app/config/sounds/smsalert.mp3";
 
 
-	srv::SRVSystem* system = srv::SRVBuilder::BuildIdle(
+	srv::SRVSystem* system = srv::SRVBuilder::BuildAlert(
 			seconds_for_starting_alarm,
 			seconds_for_stopping_alarm,
 			seconds_for_stopping_recording,

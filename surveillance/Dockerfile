@@ -15,10 +15,8 @@ COPY --from=zeromq /opt/ /opt/
 RUN apt-get update \
 	&& apt-get upgrade -y \
 	&& apt-get install -y --no-install-recommends \
-	build-essential \
 	gdb \
 	mpg123 \
-	libssl-dev \
 	libffi-dev \
 	python-dev \
 	python3-pip \
