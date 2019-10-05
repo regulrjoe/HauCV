@@ -1,4 +1,4 @@
 build/
 *.swp
 output/
-hausrc
+.my_credentials
