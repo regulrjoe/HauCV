@@ -19,5 +19,5 @@ RUN apt-get update \
 RUN pip install python-telegram-bot --upgrade \
 	&& pip install pymongo==3.9
 
-ENTRYPOINT /bin/bash
+ENTRYPOINT python /app/app.py
 WORKDIR /

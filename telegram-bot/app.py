@@ -54,13 +54,13 @@ def start(update, context):
     else:
         logging.info(f'User with chat_id {chat_id} already exists in DB.')
         context.bot.send_message(chat_id=chat_id, text=f"Oh! Looks like you're already registered to your HausCV!")
-    
 
 start_handler = CommandHandler('start', start)
 dispatcher.add_handler(start_handler)
 
+
 def unknown(update, context):
-    context.bot.send_message(chat_id=update.message.chat_id, text="Sorry, I didn't understand that command.")
+    context.bot.send_message(chat_id=update.message.chat_id, text="Sorry, I don't understand that command.")
 
 unknown_handler = MessageHandler(Filters.command, unknown)
 dispatcher.add_handler(unknown_handler)
