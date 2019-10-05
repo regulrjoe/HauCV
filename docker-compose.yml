@@ -26,7 +26,7 @@ services:
             - 'mongo'
         restart: on-failure
         environment:
-            TELEGRAM_TOKEN: 749483304:AAG1lFlA8w6i6aKiX7ePobHwn2pVD2eVxHk
+            TELEGRAM_TOKEN: ${TELEGRAM_TOKEN}
             MONGO_URL: mongodb://admin:passdb@mongo:27017
         volumes:
             - './telegram-bot:/app'
@@ -37,7 +37,7 @@ services:
         image: gcr.io/hauscv/surveillance:latest
         restart: on-failure
         environment:
-            TELEGRAM_TOKEN: 749483304:AAG1lFlA8w6i6aKiX7ePobHwn2pVD2eVxHk
+            TELEGRAM_TOKEN: ${TELEGRAM_TOKEN}
         volumes:
             - '.:/app'
         stdin_open: true
